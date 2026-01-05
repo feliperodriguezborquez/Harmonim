@@ -7,11 +7,28 @@ __pycache__/
 .Python
 env/
 venv/
+.env
+.venv
+build/
+dist/
+*.egg-info/
 
-# LilyPond temporary files
+# Manim
+media/
+*.mp4
+*.gif
+
+# LilyPond
 *.ly
-
-# LilyPond output
 *.pdf
 *.png
 *.mid
+*.midi
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db

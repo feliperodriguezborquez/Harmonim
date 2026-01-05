@@ -1,0 +1,4 @@
+manim
+manimpango
+verovio
+music21
