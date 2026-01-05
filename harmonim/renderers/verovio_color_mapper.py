@@ -84,9 +84,11 @@ def inject_colors_to_svg(svg_string: str, element_ids: list, color_mapper: Color
 
 def _inject_colors_recursive(element: ET.Element, target_ids: list, color_mapper: ColorIDMapper):
     """Recursively inject colors."""
-    element_id = element.get('id')
+    # Check both 'id' and 'data-id'
+    # Verovio often puts the MusicXML ID in 'data-id'
+    element_id = element.get('data-id') or element.get('id')
     
-    if element_id in target_ids:
+    if element_id and element_id in target_ids:
         # Get unique color for this ID
         unique_color = color_mapper.get_unique_color(element_id)
         
