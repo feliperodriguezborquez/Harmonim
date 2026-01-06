@@ -242,7 +242,154 @@ class VerovioScore(VGroup):
                         else: tie_count += 1
             except Exception: pass
 
+        # 4.5. RESOLVE RESTS VIA MEI SEQUENCING
+        # Build timeline per layer to solve Rest timing accurately
+        dur_map = {'long': 16, 'breve': 8, '1': 4, '2': 2, '4': 1, '8': 0.5, '16': 0.25, '32': 0.125, '64': 0.0625}
+        
+        def get_ppq(el):
+            d = el.get('dur')
+            val = dur_map.get(d, 0)
+            if el.get('dots') == '1': val *= 1.5
+            return val
+
+        try:
+            def get_id(node):
+                return node.get('{http://www.w3.org/XML/1998/namespace}id') or node.get('id')
+            
+            # Collect elements across the entire score into continuous streams per (Staff, Layer)
+            streams = {} # (staff_n, layer_n) -> [elements]
+
+            for measure in mei_root.findall(".//measure"):
+                for staff in measure.findall(".//staff"):
+                    s_n = staff.get('n', '1')
+                    for layer in staff.findall(".//layer"):
+                        l_n = layer.get('n', '1')
+                        key = (s_n, l_n)
+                        if key not in streams: streams[key] = []
+                        
+                        # Flatten layer elements
+                        layer_elems = []
+                        def flatten(node):
+                            tag = node.tag.split('}')[-1]
+                            if tag in ['note', 'rest', 'chord', 'beam', 'mRest']:
+                                if tag == 'beam': 
+                                    for child in node: flatten(child)
+                                elif tag == 'chord':
+                                    f_note = node.find(".//note") 
+                                    if f_note is None: 
+                                         for child in node:
+                                             if 'note' in child.tag: 
+                                                 f_note = child; break
+                                    if f_note is not None: layer_elems.append(f_note)
+                                else:
+                                    layer_elems.append(node)
+                        
+                        for item in layer: flatten(item)
+                        streams[key].extend(layer_elems)
+
+            # Process each stream independently
+            for key, elements in streams.items():
+                s_n = key[0]
+                
+                sync_indices = []
+                for i, el in enumerate(elements):
+                    eid = get_id(el)
+                    if eid and eid in midi_map: sync_indices.append(i)
+                
+                def add_rest_to_map(el, t_start, t_dur, ref_info):
+                    eid_gap = get_id(el)
+                    tag = el.tag.split('}')[-1]
+                    if tag in ['rest', 'mRest'] and eid_gap:
+                        midi_map[eid_gap] = {
+                            'start': t_start,
+                            'duration': t_dur,
+                            'element_class': 'rest',
+                            'part_index': ref_info.get('part_index', 0),
+                            'staff_n': s_n
+                        }
+
+                if sync_indices:
+                     # Calculate PPQ Factor from first sync note
+                     idx0 = sync_indices[0]
+                     node0 = elements[idx0]
+                     info0 = midi_map.get(get_id(node0))
+                     ppq0 = get_ppq(node0)
+                     ppq_factor = info0['duration'] / ppq0 if ppq0 > 0 else 0.125
+                     
+                     # 1. Leading Gap (Backwards)
+                     current_end = info0['start']
+                     for k in range(idx0 - 1, -1, -1):
+                         el = elements[k]
+                         dur = get_ppq(el) * ppq_factor
+                         start = current_end - dur
+                         add_rest_to_map(el, start, dur, info0)
+                         current_end = start
+
+                     # 2. Internal Gaps (Interpolation)
+                     for k in range(len(sync_indices) - 1):
+                        i_start = sync_indices[k]
+                        i_end = sync_indices[k+1]
+                        
+                        if i_end > i_start + 1:
+                            start_node = elements[i_start]
+                            end_node = elements[i_end]
+                            
+                            info1 = midi_map.get(get_id(start_node))
+                            info2 = midi_map.get(get_id(end_node))
+                            if not info1 or not info2: continue
+
+                            t1 = info1['start'] + info1['duration']
+                            t2 = info2['start']
+                            total_time = max(0, t2 - t1)
+                            
+                            gap_elements = elements[i_start+1 : i_end]
+                            total_ppq = sum(get_ppq(e) for e in gap_elements)
+                            
+                            if total_ppq > 0:
+                                ip_factor = total_time / total_ppq
+                                current_t = t1
+                                for e in gap_elements:
+                                    dur_sec = get_ppq(e) * ip_factor
+                                    add_rest_to_map(e, current_t, dur_sec, info1)
+                                    current_t += dur_sec
+                     
+                     # 3. Trailing Gap (Forwards)
+                     idx_last = sync_indices[-1]
+                     node_last = elements[idx_last]
+                     info_last = midi_map.get(get_id(node_last))
+                     ppq_last = get_ppq(node_last)
+                     if ppq_last > 0: ppq_factor = info_last['duration'] / ppq_last
+                     
+                     current_start = info_last['start'] + info_last['duration']
+                     for k in range(idx_last + 1, len(elements)):
+                         el = elements[k]
+                         dur = get_ppq(el) * ppq_factor
+                         add_rest_to_map(el, current_start, dur, info_last)
+                         current_start += dur
+        except Exception as e: 
+            print(f"MEI Timing Exception: {e}")
+
+        # DEBUG FILE: Check extracted rests
+        try:
+            with open("debug_midi_map.txt", "w") as f:
+                 f.write(str([(k, v['element_class']) for k, v in midi_map.items() if v.get('element_class') == 'rest']))
+        except: pass
+
         # 5. EXTRACT DYNAMICS (Timing will be resolved spatially in Manim)
+        # Parse MEI for dynamic values (p, f, etc.)
+        dynam_values = {}
+        try:
+            for d in mei_root.findall(".//dynam"):
+                did = d.get('id')
+                if did:
+                    # Try text content or text child
+                    text = d.text
+                    if not text:
+                        tchild = d.find("text")
+                        if tchild is not None: text = tchild.text
+                    dynam_values[did] = text.strip() if text else ""
+        except: pass
+
         dyn_matches = re.findall(r'<g [^>]*data-id="([^"]+)" [^>]*data-class="(hairpin|dynam)"', self.svg_string)
         dyn_count = 0
         hairpin_count = 0
@@ -256,13 +403,16 @@ class VerovioScore(VGroup):
                 s_n = attrs.get('staff', '1')
                 p_idx = staff_to_part_idx.get(s_n, 0)
                 
+                dyn_val = dynam_values.get(eid, "") if cls == 'dynam' else ""
+                
                 midi_map[eid] = {
                     'start': 0, # Placeholder
                     'duration': 0.5,
                     'element_class': cls,
                     'part_index': p_idx,
                     'staff_n': s_n,
-                    'needs_spatial_timing': True
+                    'needs_spatial_timing': True,
+                    'dynamic_value': dyn_val
                 }
                 if cls == 'hairpin': hairpin_count += 1
                 else: dyn_count += 1
@@ -302,9 +452,47 @@ class VerovioScore(VGroup):
                 }
                 artic_count += 1
         
+        # 7. EXTRACT BEAMS
+        # Map Beam ID -> List of Note IDs
+        beam_to_notes = {}
+        try:
+            for beam_el in mei_root.findall(".//beam"):
+                bid = beam_el.get('id')
+                # Try getting children via finding all nested notes
+                child_notes = [n.get('id') for n in beam_el.findall(".//note")]
+                beam_to_notes[bid] = child_notes
+        except: pass
+
+        beam_matches = re.findall(r'<g [^>]*data-id="([^"]+)" [^>]*data-class="(beam)"', self.svg_string)
+        beam_count = 0
+        for bid, cls in beam_matches:
+            c_notes = beam_to_notes.get(bid, [])
+            # Filter children present in midi_map
+            valid_notes = [n for n in c_notes if n in midi_map]
+            
+            if valid_notes:
+                # Find time span
+                start_time = min(midi_map[n]['start'] for n in valid_notes)
+                # End time is max of (start + duration)
+                end_time = max(midi_map[n]['start'] + midi_map[n]['duration'] for n in valid_notes)
+                duration = end_time - start_time
+                
+                # Use info from first note for part/staff
+                first_info = midi_map[valid_notes[0]]
+                
+                midi_map[bid] = {
+                    'start': start_time,
+                    'duration': max(0.1, duration),
+                    'element_class': 'beam',
+                    'part_index': first_info.get('part_index', 0),
+                    'staff_n': first_info.get('staff_n', '1')
+                }
+                beam_count += 1
+
         print(f"  - Extracted {len(all_note_ids)} notes, {slur_count} slurs, {tie_count} ties")
         print(f"  - Extracted {dyn_count} dynamic marks, {hairpin_count} hairpins")
         print(f"  - Extracted {artic_count} articulations")
+        print(f"  - Extracted {beam_count} beams")
         return midi_map
     
     def _attach_metadata_via_color(self):
@@ -348,23 +536,37 @@ class VerovioScore(VGroup):
                 if midi_info.get('element_class') == 'note':
                     s_n = midi_info.get('staff_n', '1')
                     if s_n not in staff_anchors: staff_anchors[s_n] = []
-                    staff_anchors[s_n].append((mob.get_center()[0], midi_info['start']))
+                    # Add start anchor (center X)
+                    staff_anchors[s_n].append((mob.get_x(), midi_info['start']))
+                    # Add end anchor (right X) to support durations spanning the full note
+                    staff_anchors[s_n].append((mob.get_right()[0], midi_info['start'] + midi_info['duration']))
             
             for sub in mob.submobjects:
                 first_pass(sub)
 
         first_pass(self.visual_score)
         
+        # DEBUG: Check matched classes
+        matched_classes = {}
+        for m, rid in all_matched:
+             cls = self.midi_data[rid].get('element_class', 'unknown')
+             matched_classes[cls] = matched_classes.get(cls, 0) + 1
+        
+        try:
+            with open("debug_matched_classes.txt", "w") as f:
+                f.write(str(matched_classes))
+        except: pass
+
         # Sort anchors by X
         for s in staff_anchors:
             staff_anchors[s].sort()
 
-        # 2. PASS TWO: RESOLVE TIMING AND ATTACH
+        # 2. PASS TWO: RESOLVE TIMING
         for mob, recovered_id in all_matched:
             midi_info = self.midi_data[recovered_id]
             e_class = midi_info.get('element_class', 'note')
             
-            # Resolve spatial timing if needed
+            # Resolve spatial timing if needed (Rests from MEI Step 4.5 don't have this flag)
             if midi_info.get('needs_spatial_timing'):
                 s_n = midi_info.get('staff_n', '1')
                 anchors = staff_anchors.get(s_n, [])
@@ -373,25 +575,167 @@ class VerovioScore(VGroup):
                     anchors.sort()
                 
                 if anchors:
-                    # Find nearest time for start (left side)
-                    x_start = mob.get_left()[0]
-                    closest_start = min(anchors, key=lambda a: abs(a[0] - x_start))
-                    midi_info['start'] = closest_start[1]
+                    # Find nearest LEFT anchor for start time (preserves causality)
+                    # Using get_left() logic. x_target is the visual start.
+                    x_target = mob.get_left()[0]
+                    
+                    # Filter for anchors that are to the left (or aligned) with tolerance
+                    candidates = [a for a in anchors if a[0] <= x_target + 0.2]
+                    
+                    if candidates:
+                         # Take the right-most of the candidate anchors (closest one to the left)
+                        midi_info['start'] = candidates[-1][1]
+                    else:
+                        # Fallback: closest absolute anchor (probably the first one)
+                        closest = min(anchors, key=lambda a: abs(a[0] - x_target))
+                        midi_info['start'] = closest[1]
                     
                     if e_class == 'hairpin':
                         # Find nearest time for end (right side)
                         x_end = mob.get_right()[0]
+                        # For end, we want the closest anchor generally, usually on the right
                         closest_end = min(anchors, key=lambda a: abs(a[0] - x_end))
                         midi_info['duration'] = max(0.1, closest_end[1] - midi_info['start'])
+                    elif e_class == 'rest':
+                        # Find first anchor AFTER start time to determine duration
+                        try:
+                            t_start = midi_info['start']
+                            found_end = False
+                            for a in anchors:
+                                if a[1] > t_start + 0.1: # Threshold to skip jitter
+                                    midi_info['duration'] = a[1] - t_start
+                                    found_end = True
+                                    break
+                            if not found_end: midi_info['duration'] = 1.0
+                        except:
+                            midi_info['duration'] = 1.0
                     else:
                         midi_info['duration'] = 0.5
+        
+        # 3. PASS THREE: COMPUTE OPACITIES
+        # Build dynamics and hairpin timelines per staff
+        staff_events = {}   # staff_n -> [(time, opacity_val)]
+        staff_hairpins = {} # staff_n -> [(start, end, type)]
+        
+        # Extended Dynamic Map
+        dyn_map = {
+            'pppp': 0.3, 'ppp': 0.35, 'pp': 0.4, 'p': 0.5, 'mp': 0.6,
+            'mf': 0.7, 'f': 0.8, 'ff': 0.9, 'fff': 0.95, 'ffff': 1.0,
+            'sf': 0.85, 'sfz': 0.85, 'rf': 0.85, 'rfz': 0.85, 
+            'fp': 0.8, 'sfp': 0.8
+        }
+        
+        # Collect events
+        for mid, info in self.midi_data.items():
+            s_n = info.get('staff_n', '1')
+            e_class = info.get('element_class')
+            
+            if e_class == 'dynam' and info.get('dynamic_value'):
+                if s_n not in staff_events: staff_events[s_n] = []
+                
+                val = info['dynamic_value']
+                
+                # Handle complex dynamics like fp
+                if 'fp' in val:
+                    # Start loud, then soft
+                    op_loud = dyn_map.get('f', 0.8)
+                    op_soft = dyn_map.get('p', 0.5)
+                    staff_events[s_n].append((info['start'], op_loud))
+                    staff_events[s_n].append((info['start'] + 0.05, op_soft))
+                else:
+                    op = dyn_map.get(val, 0.7)
+                    staff_events[s_n].append((info['start'], op))
+            
+            elif e_class == 'hairpin':
+                if s_n not in staff_hairpins: staff_hairpins[s_n] = []
+                # info['start'] and info['duration'] are set in Pass 2
+                h_type = 1 if 'cresc' in (info.get('type', '') or '') else -1 # 1 for cresc, -1 for dim? 
+                # Actually need to parse type from somewhere or assume cresc if not specified? 
+                # MEI usually specifies shape. Verovio class might not.
+                # Assuming standard hairpin direction or checking attributes if possible.
+                # For now let's infer target based on next dynamic if possible, direction matters less for interpolation "magnitude" logic 
+                # unless we forcing a direction.
+                # Let's assume standard closed hairpin is cresc? No, wedge type.
+                # Verovio usually exports class="hairpin". We might need to check attributes for "form" or "type".
+                # But let's assume valid start/end for interpolation.
+                
+                staff_hairpins[s_n].append((info['start'], info['start'] + info['duration']))
 
+        # Sort timelines
+        for s in staff_events: staff_events[s].sort()
+        for s in staff_hairpins: staff_hairpins[s].sort()
+
+        # Helper to get base opacity at time t
+        def get_base_opacity(s_n, t):
+            timeline = staff_events.get(s_n, [])
+            current = 0.7 # Default
+            for (dt, dop) in timeline:
+                if dt <= t + 0.01:
+                    current = dop
+                else:
+                    break
+            return current
+
+        # Assign opacity to every element
+        for mid, info in self.midi_data.items():
+            t = info['start']
+            s_n = info.get('staff_n', '1')
+            # Base level
+            op = get_base_opacity(s_n, t)
+            
+            # Check if inside hairpin (interpolate)
+            active_hairpin = None
+            if s_n in staff_hairpins:
+                for (h_start, h_end) in staff_hairpins[s_n]:
+                    if h_start <= t <= h_end:
+                        active_hairpin = (h_start, h_end)
+                        break
+            
+            if active_hairpin:
+                h_start, h_end = active_hairpin
+                
+                # Determine start and end opacities for the hairpin
+                start_op = get_base_opacity(s_n, h_start)
+                
+                # Check if there is a specific dynamic target at h_end
+                timeline = staff_events.get(s_n, [])
+                end_op = None
+                
+                # Look for event near h_end
+                for (dt, dop) in timeline:
+                    if abs(dt - h_end) < 0.5: # Tolerance
+                        end_op = dop
+                if end_op is None:
+                    if start_op < 0.7: end_op = min(1.0, start_op + 0.3)
+                    else: end_op = max(0.3, start_op - 0.3)
+                
+                if info.get('element_class') in ['hairpin', 'beam', 'slur', 'tie']:
+                    # Store gradients for slicing later
+                    info['grad_start_op'] = start_op
+                    info['grad_end_op'] = end_op
+                    # The element starts at start_op
+                    op = start_op
+                else:
+                    # Linear Interpolation
+                    progress = (t - h_start) / max(0.01, (h_end - h_start))
+                    progress = max(0.0, min(1.0, progress))
+                    op = start_op + (end_op - start_op) * progress
+            
+            info['opacity'] = op
+
+        # 4. PASS FOUR: APPLY METADATA TO MOBJECTS
+        for mob, recovered_id in all_matched:
+            midi_info = self.midi_data[recovered_id]
+            e_class = midi_info.get('element_class', 'note')
+            
             # Apply metadata
-            # Apply metadata
-            # Apply metadata
-            if e_class in ['slur', 'tie', 'hairpin'] and not hasattr(mob, "is_slice"):
+            if e_class in ['slur', 'tie', 'hairpin', 'beam'] and not hasattr(mob, "is_slice"):
                 num_slices = 100
                 slices = VGroup()
+                
+                # Gradient values for all sliced elements
+                g_start = midi_info.get('grad_start_op', midi_info.get('opacity', 0.7))
+                g_end = midi_info.get('grad_end_op', g_start)
                 
                 if e_class == 'hairpin':
                     # LINEAR SLICING for hairpins (wedge shape)
@@ -406,11 +750,8 @@ class VerovioScore(VGroup):
                             a1 = i / num_slices
                             a2 = (i + 1) / num_slices
                             
-                            # Naive mapping 0-0.5 top, 1.0-0.5 bottom assumption
-                            # We just grab segments from both "sides" of the proportion loop
                             p1 = mob.point_from_proportion(a1 * 0.5)
                             p2 = mob.point_from_proportion(a2 * 0.5)
-                            
                             p3 = mob.point_from_proportion(1.0 - (a1 * 0.5))
                             p4 = mob.point_from_proportion(1.0 - (a2 * 0.5))
                             
@@ -423,17 +764,21 @@ class VerovioScore(VGroup):
                     raw_segments.sort(key=lambda m: m.get_center()[0])
                     for i, s in enumerate(raw_segments):
                         s.is_slice = True
-                        # Map i to time range strictly L->R
                         alpha = i / len(raw_segments)
                         s.start_time = midi_info['start'] + alpha * midi_info['duration']
                         s.part_index = midi_info.get('part_index', 0)
+                        
+                        # Interpolate opacity for this slice
+                        s.target_opacity = g_start + (g_end - g_start) * alpha
                         slices.add(s)
 
                 else:
-                    # LOOP SLICING for Slurs/Ties (Filled Polygon slices)
+                    # LOOP SLICING for Slurs/Ties/Beams (Filled Polygon slices)
+                    # Slurs/Ties/Beams are usually closed paths
                     raw_polys = []
                     for i in range(num_slices):
                         try:
+                            # We assume simple closed loop parameterization
                             a1 = (i / num_slices) * 0.5
                             a2 = ((i + 1) / num_slices) * 0.5
                             p1 = mob.point_from_proportion(a1)
@@ -444,17 +789,17 @@ class VerovioScore(VGroup):
                             raw_polys.append(s)
                         except: pass
                     
-                    # Sort slurs L->R as well? Usually strictly correlated.
-                    # Some slurs arc back? No, usually timing is X-axis based in standard notation.
                     raw_polys.sort(key=lambda m: m.get_center()[0])
                     for i, s in enumerate(raw_polys):
                         s.is_slice = True
                         alpha = i / len(raw_polys)
                         s.start_time = midi_info['start'] + alpha * midi_info['duration']
                         s.part_index = midi_info.get('part_index', 0)
+                        # Interpolate opacity for this slice
+                        s.target_opacity = g_start + (g_end - g_start) * alpha
                         slices.add(s)
                 
-                # CRITICAL: CLEAR PARENT GEOMETRY so it doesn't show the unfilled/black shape underneath
+                # CRITICAL: CLEAR PARENT GEOMETRY
                 mob.points = np.zeros((0, 3))
                 mob.set_fill(opacity=0)
                 mob.set_stroke(opacity=0)
@@ -465,18 +810,19 @@ class VerovioScore(VGroup):
                 mob.duration = midi_info['duration']
                 mob.element_class = e_class
                 mob.part_index = midi_info.get('part_index', 0)
+                mob.target_opacity = midi_info.get('opacity', 0.7)
             else:
                 mob.note_id = recovered_id
                 mob.start_time = midi_info['start']
                 mob.duration = midi_info['duration']
                 mob.element_class = e_class
                 mob.part_index = midi_info.get('part_index', 0)
+                mob.target_opacity = midi_info.get('opacity', 0.7)
             
             matched_count += 1
         
         print(f"Color Matching Results:")
         print(f"  - Successfully matched {matched_count} elements in Manim")
-
     def get_notes_at_time(self, time: float) -> List[VMobject]:
         """Get all note mobjects active at a given time."""
         notes = []
@@ -491,10 +837,11 @@ class VerovioScore(VGroup):
         check_mobject(self)
         return notes
     
-    def animate_playback(self, scene: Scene, colors=BLUE):
+    def animate_playback(self, scene: Scene, colors=BLUE, color_rests=True):
         """
         Helper method to animate the score as if it's playing.
         'colors' can be a single color or a list of colors (one per instrument).
+        'color_rests': if False, rests will be timed but not visually colored.
         """
         if not isinstance(colors, list):
             colors = [colors] * (len(getattr(self, 'part_list', [0])) + 1)
@@ -524,16 +871,31 @@ class VerovioScore(VGroup):
             
             def update_element(m, dt, col=target_color):
                 t = time_tracker.get_value()
-                # Chord synchronization: using simple >= check is enough as all
-                # notes in a chord share the exact same start_time from Verovio
+                # Retrieve element class
+                e_cls = getattr(m, 'element_class', 'note')
+                
+                # Synchronization
                 if t >= m.start_time:
-                    # Use set_color for slices (Polygons) and set_fill for notes
+                    # Skip coloring rests if requested
+                    if e_cls == 'rest' and not color_rests:
+                        # Ensure it stays black (or base color)
+                        m.set_fill(BLACK, opacity=1.0)
+                        m.set_stroke(BLACK, opacity=1.0)
+                        return
+
+                    # Retrieve calculated dynamic opacity
+                    op = getattr(m, 'target_opacity', 0.7)
+                    
+                    # Use set_color for slices (Polygons/Lines) and set_fill for notes
                     if hasattr(m, "is_slice"):
                         m.set_color(col)
-                        m.set_fill(col, opacity=1.0)
+                        # For lines, set_stroke is key. For polygons, set_fill.
+                        # Since we now use Lines for hairpins and Polygons for slurs:
+                        m.set_stroke(col, opacity=op) # Affects Lines
+                        m.set_fill(col, opacity=op)   # Affects Polygons
                     else:
-                        m.set_fill(col, opacity=1.0)
-                        m.set_stroke(col, opacity=1.0)
+                        m.set_fill(col, opacity=op)
+                        m.set_stroke(col, opacity=op)
                 else:
                     m.set_fill(BLACK, opacity=1.0)
                     m.set_stroke(BLACK, opacity=1.0)

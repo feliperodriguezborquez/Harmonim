@@ -1,4 +1,3 @@
 manim
-manimpango
 verovio
-music21
+numpy

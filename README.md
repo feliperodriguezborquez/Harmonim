@@ -1,14 +1,22 @@
 # Harmonim
 
-Harmonim is a Python library for programmatically generating and animating musical scores, built on top of [Manim](https://www.manim.community/). It allows you to create high-quality, professional-looking musical animations using code.
+Harmonim is a powerful Python library for automating high-quality musical score animations using [Manim](https://www.manim.community/) and [Verovio](https://www.verovio.org/).
+
+It takes **MusicXML** files as input and renders them as precise, aesthetically pleasing animations where notes, dynamics, and articulations light up in synchronization with the music.
 
 ## Features
 
-*   **Programmatic Score Generation**: Define notes, rests, clefs, key signatures, and time signatures using Python objects.
-*   **Manim Integration**: Seamlessly render musical elements as Manim `Mobject`s for easy animation.
-*   **SMuFL Support**: Uses the [Bravura](https://github.com/steinbergmedia/bravura) font (SMuFL compliant) for professional music engraving aesthetics.
-*   **Complex Scores**: Supports grand staves, multiple voices, and automatic layout adjustments.
-*   **Customizable**: Control colors, spacing, and styling to fit your visual needs.
+*   **MusicXML Import**: Simply provide a `.musicxml` file, and Harmonim handles the rendering.
+*   **Intelligent Synchronization**:
+    *   **Notes & Chords**: Colored precisely when played.
+    *   **Rests**: Respects musical timing of silence (optionally visible or invisible).
+    *   **Beams**: Progressive animation mirroring the duration of the beamed group.
+    *   **Slurs & Ties**: Smoothly animated over their full duration.
+    *   **Hairpins (Crescendo/Diminuendo)**: Dynamic opacity changes (fade in/out) synchronized with the score.
+    *   **Dynamics & Articulations**: Visual emphasis for *p*, *f*, accents, staccatos, etc.
+*   **Multi-Instrument Support**: Automatically handles multiple staves/parts with independent coloring.
+*   **Professional Engraving**: Leveraging Verovio and the SMuFL-compliant Bravura font for publication-quality sheet music.
+*   **Manim Integration**: Returns a standard Manim `VGroup` that can be manipulated (moved, scaled, faded) like any other object.
 
 ## Installation
 
@@ -19,66 +27,66 @@ Harmonim is a Python library for programmatically generating and animating music
     ```
 
 2.  **Install dependencies:**
-    It is recommended to use a virtual environment.
     ```bash
     pip install -r requirements.txt
     ```
-    *Note: You must have [Manim](https://docs.manim.community/en/stable/installation.html) installed on your system (including FFmpeg and LaTeX).*
+    *Requirements: `manim`, `verovio`, `numpy`.*
 
-3.  **Font Setup:**
-    Harmonim uses the Bravura font. Ensure `harmonim/assets/fonts/Bravura.otf` is present. The library attempts to register it automatically.
+## Quick Start
 
-## Usage
+Harmonim revolves around the `VerovioScore` class.
 
-### Basic Example
+### 1. Create a MusicXML File
+Export your score from Musescore, Finale, or Dorico as `.musicxml`.
 
-Create a simple animation of a single note:
-
-```bash
-manim -pql examples/animation_example.py SimpleNoteAnimation
-```
-
-### Rendering a Complex Score
-
-To render a full grand staff with key signatures, time signatures, and notes:
-
-```bash
-manim -pqh tests/test_complex_score.py ComplexScore
-```
-
-*   `-p`: Preview the video after rendering.
-*   `-qh`: Render in High Quality (1080p60). Use `-ql` for low quality during development.
-
-### Code Example
+### 2. Create a Manim Script (`demo.py`)
 
 ```python
-from harmonim.elements import Note, Rest, Staff, StaffGroup, Clef, KeySignature, TimeSignature
-from harmonim.renderers.manim_renderer import ManimRenderer
+from manim import *
+from harmonim.verovio_score import VerovioScore
 
-# Define a Staff
-staff = Staff(clef=Clef('treble'))
-staff.add_element(TimeSignature('4/4'))
-staff.add_element(Note('C', 4, 1.0)) # Middle C, Quarter note
-staff.add_element(Note('E', 4, 1.0))
-staff.add_element(Note('G', 4, 1.0))
-staff.add_element(Rest(1.0))
-
-# Render with Manim
-# (Inside a Manim Scene)
-renderer = ManimRenderer()
-staff_mobject = renderer.render(staff)
-self.add(staff_mobject)
+class MyScoreAnimation(Scene):
+    def construct(self):
+        # 1. Initialize the Score
+        score = VerovioScore("path/to/my_score.musicxml")
+        
+        # 2. Position it
+        score.scale(0.8)
+        score.move_to(ORIGIN)
+        
+        # 3. Add to Scene
+        self.camera.background_color = WHITE
+        self.add(score)
+        
+        # 4. Animate Playback
+        # 'colors' list maps to instruments (P1, P2...)
+        # 'color_rests' determines if rests should be lit up (default: True)
+        score.animate_playback(self, colors=[TEAL, MAROON], color_rests=False)
+        
+        self.wait(2)
 ```
 
-## Project Structure
+### 3. Render
+```bash
+manim -ql demo.py MyScoreAnimation
+```
 
-*   `harmonim/`: Core library package.
-    *   `elements/`: Musical element definitions (Note, Staff, Clef, etc.).
-    *   `renderers/`: Rendering logic (currently Manim).
-    *   `core/`: Configuration and SMuFL mappings.
-    *   `assets/`: Fonts and other static assets.
-*   `examples/`: Example scripts.
-*   `tests/`: Unit and visual tests.
+## Examples
+
+Check the `examples/` and test scripts for more advanced use cases:
+
+*   **`test_complex.py`**: A full demonstration featuring piano and violin, chords, dynamics, and articulations.
+*   **`test_rests.py`**: demonstrates precise handling of rests and syncopation.
+*   **`test_beams.py`**: Shows beam animation.
+
+## Architecture
+
+Harmonim uses a novel "Color Injection" technique to bridge Verovio and Manim:
+1.  **Render**: Verovio renders the MusicXML to SVG.
+2.  **Map**: Harmonim extracts MIDI timing and attributes from Verovio's MEI structure.
+3.  **Trace**: It injects unique color IDs into the SVG elements to track them.
+4.  **Reconstruct**: The SVG is loaded into Manim, and the IDs are used to bind the Manim vectors back to their musical meaning (start time, duration, part).
+5.  **Animate**: Custom Updaters control opacity and color based on the animation clock.
 
 ## License
 

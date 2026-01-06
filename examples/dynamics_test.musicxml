@@ -1,40 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <score-partwise version="3.1">
   <part-list>
-    <score-part id="P1"><part-name>Dynamics Test</part-name></score-part>
+    <score-part id="P1"><part-name>Advanced Dynamics</part-name></score-part>
   </part-list>
   <part id="P1">
     <measure number="1">
       <attributes>
         <divisions>4</divisions>
         <key><fifths>0</fifths></key>
+        <time><beats>4</beats><beat-type>4</beat-type></time>
         <clef><sign>G</sign><line>2</line></clef>
       </attributes>
+      
+      <!-- Start with pp -->
+      <direction placement="below">
+        <direction-type><dynamics><pp/></dynamics></direction-type>
+        <offset>0</offset>
+      </direction>
+      
+      <!-- Start Crescendo -->
       <direction placement="below">
         <direction-type><wedge type="crescendo" number="1"/></direction-type>
         <offset>0</offset>
       </direction>
+
       <note>
         <pitch><step>C</step><octave>4</octave></pitch>
         <duration>4</duration>
         <type>quarter</type>
       </note>
       <note>
-        <pitch><step>D</step><octave>4</octave></pitch>
+        <pitch><step>E</step><octave>4</octave></pitch>
         <duration>4</duration>
         <type>quarter</type>
       </note>
+      <note>
+        <pitch><step>G</step><octave>4</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch><step>C</step><octave>5</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+      </note>
+      
+      <!-- Stop Crescendo -->
+      <direction placement="below">
+        <direction-type><wedge type="stop" number="1"/></direction-type>
+      </direction>
+    </measure>
+
+    <measure number="2">
+      <!-- Arrive at fp (Forte Piano) -->
+      <direction placement="below">
+        <direction-type><dynamics><fp/></dynamics></direction-type>
+      </direction>
+      
+      <note>
+        <pitch><step>E</step><octave>5</octave></pitch>
+        <duration>8</duration>
+        <type>half</type>
+        <notations><articulations><accent/></articulations></notations>
+      </note>
+      
+      <direction placement="below">
+          <direction-type><dynamics><sfz/></dynamics></direction-type>
+      </direction>
+
+      <note>
+        <pitch><step>C</step><octave>5</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+        <notations><articulations><staccato/></articulations></notations>
+      </note>
+      <note>
+        <pitch><step>G</step><octave>4</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+      </note>
+    </measure>
+
+    <measure number="3">
+      <!-- Start Diminuendo -->
+      <direction placement="below">
+        <direction-type><wedge type="diminuendo" number="1"/></direction-type>
+      </direction>
+      
+      <note>
+        <pitch><step>C</step><octave>4</octave></pitch>
+        <duration>16</duration>
+        <type>whole</type>
+      </note>
+      
+      <!-- Stop Diminuendo at p -->
       <direction placement="below">
         <direction-type><wedge type="stop" number="1"/></direction-type>
       </direction>
       <direction placement="below">
-        <direction-type><dynamics><f/></dynamics></direction-type>
+        <direction-type><dynamics><p/></dynamics></direction-type>
       </direction>
-      <note>
-        <pitch><step>E</step><octave>4</octave></pitch>
-        <duration>8</duration>
-        <type>half</type>
-      </note>
     </measure>
   </part>
 </score-partwise>
