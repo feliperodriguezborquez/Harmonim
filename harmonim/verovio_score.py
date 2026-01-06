@@ -30,12 +30,14 @@ class VerovioScore(VGroup):
     """
     
     def __init__(self, musicxml_path: str, **kwargs):
+        self.scrolling = kwargs.pop("scrolling", False)
         super().__init__(**kwargs)
         self.musicxml_path = str(musicxml_path)
         
         # 1. Initialize Verovio
         self.tk = verovio.toolkit()
-        self.tk.setOptions({
+        
+        options = {
             "scale": 50,
             "adjustPageHeight": True,
             "font": "Bravura",
@@ -44,7 +46,17 @@ class VerovioScore(VGroup):
             "noText": 1,       # Converts dynamic marks to paths
             "header": "none",
             "footer": "none"
-        })
+        }
+        
+        if self.scrolling:
+            # Create a single huge page for infinite scrolling
+            options.update({
+                "pageWidth": 60000, 
+                "breaks": "none",
+                "spacingNonLinear": 0.0  # Force proportional spacing for constant speed
+            })
+            
+        self.tk.setOptions(options)
         
         if not self.tk.loadFile(self.musicxml_path):
             raise ValueError(f"Could not load {musicxml_path}")
@@ -76,6 +88,11 @@ class VerovioScore(VGroup):
         
         # Load SVG into Manim - Manim will parse the colors we injected
         self.visual_score = SVGMobject(str(temp_path))
+        
+        if self.scrolling:
+            # Huge width causes auto-scaling to make it tiny. 
+            # We must restore a reasonable height.
+            self.visual_score.scale_to_fit_height(6)
         
         # 6. THE MAGIC LINKING (via Color)
         self._attach_metadata_via_color()
@@ -701,23 +718,36 @@ class VerovioScore(VGroup):
                 timeline = staff_events.get(s_n, [])
                 end_op = None
                 
-                # Look for event near h_end
-                for (dt, dop) in timeline:
-                    if abs(dt - h_end) < 0.5: # Tolerance
-                        end_op = dop
+                # Look for the FIRST event at or after h_end
+                # This covers cases where the "f" is slightly after the hairpin wedge ends visually
+                if timeline:
+                    # Filter for events after h_end - epsilon
+                    candidates = [(dt, dop) for (dt, dop) in timeline if dt >= h_end - 0.2]
+                    if candidates:
+                        # Take the first one found
+                        cand_t, cand_op = candidates[0]
+                        # Only accept if it's reasonably close (e.g. within 2 beats/seconds)
+                        if cand_t - h_end < 2.0:
+                            end_op = cand_op
+                            
                 if end_op is None:
+                    # Fallback inference
                     if start_op < 0.7: end_op = min(1.0, start_op + 0.3)
                     else: end_op = max(0.3, start_op - 0.3)
                 
+                # Apply gradients metadata to hairpin/beam/slur/tie itself so it can slice properly
                 if info.get('element_class') in ['hairpin', 'beam', 'slur', 'tie']:
-                    # Store gradients for slicing later
+                    # These elements span time, so they need start/end grad
                     info['grad_start_op'] = start_op
                     info['grad_end_op'] = end_op
-                    # The element starts at start_op
+                    # Base opacity is start
                     op = start_op
                 else:
+                    # Notes/Rests are points in time (mostly)
+                    # Interpolate opacity based on note start time 't'
                     # Linear Interpolation
-                    progress = (t - h_start) / max(0.01, (h_end - h_start))
+                    total_dur = max(0.01, h_end - h_start)
+                    progress = (t - h_start) / total_dur
                     progress = max(0.0, min(1.0, progress))
                     op = start_op + (end_op - start_op) * progress
             
@@ -912,3 +942,174 @@ class VerovioScore(VGroup):
         
         for element in timed_elements:
             element.clear_updaters()
+        
+        if self.scrolling:
+            self.clear_updaters()
+    
+    def animate_playback(self, scene: Scene, colors=BLUE, color_rests=True, pan_score=None):
+        """
+        Helper method to animate the score as if it's playing.
+        'colors' can be a single color or a list of colors (one per instrument).
+        'color_rests': if False, rests will be timed but not visually colored.
+        'pan_score': if True, moves the score so the current note is centered. Defaults to self.scrolling.
+        """
+        if pan_score is None:
+            pan_score = self.scrolling
+
+        if not isinstance(colors, list):
+            colors = [colors] * (len(getattr(self, 'part_list', [0])) + 1)
+
+        timed_elements = []
+        
+        def collect(mob):
+            # Only collect leaf elements with timing (either notes or slur slices)
+            if hasattr(mob, 'start_time'):
+                if not mob.submobjects or hasattr(mob, "is_slice"):
+                    timed_elements.append(mob)
+            for sub in mob.submobjects:
+                collect(sub)
+        
+        collect(self)
+        if not timed_elements: return
+            
+        # Create a time tracker starting slightly before 0 for a lead-in
+        # This prevents the first note from being already colored when the video starts
+        time_tracker = ValueTracker(-0.5)
+        
+        # Setup Scrolling if requested
+        if pan_score:
+            # Build Time -> X Map
+            time_x_map = []
+            for m in timed_elements:
+                try:
+                    # Use center x
+                    time_x_map.append((m.start_time, m.get_center()[0]))
+                except: pass
+            
+            # Sort by time
+            time_x_map.sort(key=lambda x: x[0])
+            
+            # Extract arrays
+            times = [tx[0] for tx in time_x_map]
+            xs = [tx[1] for tx in time_x_map]
+            
+            if not times: return
+
+            original_origin = self.get_center()
+            # Capture ORIGINAL boundaries (Absolute coordinates at start)
+            orig_left = self.get_left()[0]
+            orig_right = self.get_right()[0]
+            
+            # Use Linear Regression to find the ideal constant velocity
+            # Target X(t) = slope * t + intercept
+            if len(times) > 1:
+                slope, intercept = np.polyfit(times, xs, deg=1)
+            elif len(times) == 1:
+                slope, intercept = 0, xs[0]
+            else:
+                slope, intercept = 0, 0
+            
+            def scroll_updater(mob):
+                t = time_tracker.get_value()
+                # 1. Calculate ideal position (where the active note is)
+                ideal_target_x = slope * t + intercept
+                
+                # 2. Define Camera Constraints
+                # We want the camera to never show empty space beyond margins.
+                # Screen width is approx 14.22 (config.frame_width).
+                # Half width is ~7.11.
+                half_width = config.frame_x_radius
+                margin = 0.5 # Small buffer
+                
+                # The "Camera X" corresponds to resulting Center X (0) in the shifted world.
+                # So if we shift by (Original - Target), the point at Target becomes Origin.
+                # We want to LIMIT Target (the point that becomes Origin).
+                
+                # Min Target: The point that, when moved to Origin, puts Left Edge at -HalfWidth + Margin.
+                # If Target moves to 0, Left Edge moves to (Left - Target).
+                # We want (Left - Target) <= -HalfWidth + Margin => Target >= Left + HalfWidth - Margin.
+                min_target_x = orig_left + half_width - margin
+                
+                # Max Target: The point that, when moved to Origin, puts Right Edge at +HalfWidth - Margin.
+                # We want (Right - Target) >= HalfWidth - Margin => Target <= Right - HalfWidth + Margin.
+                max_target_x = orig_right - half_width + margin
+                
+                # If content is smaller than screen, center it
+                if max_target_x < min_target_x:
+                    actual_target_x = (orig_left + orig_right) / 2
+                else:
+                    actual_target_x = np.clip(ideal_target_x, min_target_x, max_target_x)
+                
+                # 3. Move Score
+                # Shift = Original_Origin - Actual_Target
+                # (Because Original_Origin corresponds to the coordinate that WAS at center originally)
+                # Actually, simply: We want the point `actual_target_x` to be at `original_origin[0]`.
+                # Current pos of that point is (`actual_target_x` + current_shift).
+                # We set new pos: `new_center = original_origin - (actual_target_x - original_origin[0_component])`?
+                # No.
+                # The vector `V` such that `Point + V = Origin`.
+                # `V = Origin - Point`.
+                # If we want `Point` (actual_target_x, 0, 0) to be at `Origin` (0,0,0) (assuming centered at start).
+                # Then `shift = -actual_target_x`.
+                # `mob.move_to(original_origin + shift)`.
+                
+                shift_x = original_origin[0] - actual_target_x
+                
+                current_center = mob.get_center()
+                mob.move_to([shift_x, current_center[1], current_center[2]])
+
+            self.add_updater(scroll_updater)
+
+        # Determine highlighting color and apply updaters
+        for element in timed_elements:
+            # Pick color for this instrument
+            p_idx = getattr(element, 'part_index', 0)
+            target_color = colors[p_idx % len(colors)]
+            
+            def update_element(m, dt, col=target_color):
+                t = time_tracker.get_value()
+                # Retrieve element class
+                e_cls = getattr(m, 'element_class', 'note')
+                
+                # Synchronization
+                if t >= m.start_time:
+                    # Skip coloring rests if requested
+                    if e_cls == 'rest' and not color_rests:
+                        # Ensure it stays black (or base color)
+                        m.set_fill(BLACK, opacity=1.0)
+                        m.set_stroke(BLACK, opacity=1.0)
+                        return
+
+                    # Retrieve calculated dynamic opacity
+                    op = getattr(m, 'target_opacity', 0.7)
+                    
+                    # Use set_color for slices (Polygons/Lines) and set_fill for notes
+                    if hasattr(m, "is_slice"):
+                        m.set_color(col)
+                        # For lines, set_stroke is key. For polygons, set_fill.
+                        # Since we now use Lines for hairpins and Polygons for slurs:
+                        m.set_stroke(col, opacity=op) # Affects Lines
+                        m.set_fill(col, opacity=op)   # Affects Polygons
+                    else:
+                        m.set_fill(col, opacity=op)
+                        m.set_stroke(col, opacity=op)
+                else:
+                    m.set_fill(BLACK, opacity=1.0)
+                    m.set_stroke(BLACK, opacity=1.0)
+            
+            element.add_updater(update_element)
+        
+        # Total animation duration
+        # We add the 0.5 lead-in + 0.5 buffer at the end
+        max_end = max([e.start_time + getattr(e, 'duration', 0.1) for e in timed_elements])
+        total_time = max_end + 1.0
+        
+        # Animate the time tracker (pass 'scene' to play)
+        scene.play(time_tracker.animate.set_value(max_end + 0.5), run_time=total_time, rate_func=linear)
+        
+        # Cleanup
+        for element in timed_elements:
+            element.clear_updaters()
+        
+        if pan_score:
+            self.clear_updaters()

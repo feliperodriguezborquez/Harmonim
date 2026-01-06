@@ -5,10 +5,11 @@ class ComplexDemo(Scene):
     def construct(self):
         # 1. Setup Score
         score = VerovioScore(
-            r"c:\Users\felip\OneDrive - uc.cl\Yo\IA\GitHub\Harmonim\examples\complex_test.musicxml"
+            r"c:\Users\felip\OneDrive - uc.cl\Yo\IA\GitHub\Harmonim\examples\long_test.musicxml",
+            scrolling=True
         )
-        score.scale(0.6)
-        score.set_width(12)
+        score.scale(0.8)
+        # score.set_width(12)
         score.move_to(ORIGIN)
         
         # 2. Add to Scene

@@ -32,3 +32,8 @@ media/
 # OS
 .DS_Store
 Thumbs.db
+
+# User Examples
+test_senor.py
+examples/kyrie.musicxml
+examples/Señor, ten Piedad.musicxml

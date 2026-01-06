@@ -1,0 +1,1 @@
+{'beam': 160, 'note': 540, 'hairpin': 5, 'slur': 5, 'articulation': 40}
