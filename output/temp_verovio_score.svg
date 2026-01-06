@@ -1,335 +1,203 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1050 502" version="1.1" overflow="visible" id="k1eqy8tl">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1050 143" version="1.1" overflow="visible" id="o5s9hvb">
    <desc>Engraved by Verovio 5.6.0[undefined]</desc>
    <defs>
-      <g id="E050-k1eqy8tl">
+      <g id="E050-o5s9hvb">
          <path transform="scale(1,-1)" d="M376 415l25 -145c3 -18 3 -18 29 -18c147 0 241 -113 241 -241c0 -113 -67 -198 -168 -238c-14 -6 -15 -5 -13 -17c11 -62 29 -157 29 -214c0 -170 -130 -200 -197 -200c-151 0 -190 98 -190 163c0 62 40 115 107 115c61 0 96 -47 96 -102c0 -58 -36 -85 -67 -94 c-23 -7 -32 -10 -32 -17c0 -13 26 -29 80 -29c59 0 159 18 159 166c0 47 -15 134 -27 201c-2 12 -4 11 -15 9c-20 -4 -46 -6 -69 -6c-245 0 -364 165 -364 339c0 202 153 345 297 464c12 10 11 12 9 24c-7 41 -14 106 -14 164c0 104 24 229 98 311c20 22 51 48 65 48 c11 0 37 -28 52 -50c41 -60 65 -146 65 -233c0 -153 -82 -280 -190 -381c-6 -6 -8 -7 -6 -19zM470 943c-61 0 -133 -96 -133 -252c0 -32 2 -66 6 -92c2 -13 6 -14 13 -8c79 69 174 159 174 270c0 55 -27 82 -60 82zM361 262l-21 128c-2 11 -4 12 -14 4 c-47 -38 -93 -75 -153 -142c-83 -94 -93 -173 -93 -232c0 -139 113 -236 288 -236c20 0 40 2 56 5c15 3 16 3 14 14l-50 298c-2 11 -4 12 -20 8c-61 -17 -100 -60 -100 -117c0 -46 30 -89 72 -107c7 -3 15 -6 15 -13c0 -6 -4 -11 -12 -11c-7 0 -19 3 -27 6 c-68 23 -115 87 -115 177c0 85 57 164 145 194c18 6 18 5 15 24zM430 103l49 -285c2 -12 4 -12 16 -6c56 28 94 79 94 142c0 88 -67 156 -148 163c-12 1 -13 -2 -11 -14z" />
       </g>
-      <g id="E0A4-k1eqy8tl">
+      <g id="E084-o5s9hvb">
+         <path transform="scale(1,-1)" d="M362 -74h73c11 0 15 -7 15 -19s-5 -19 -15 -19h-73v-59c0 -32 21 -38 31 -38s22 -6 22 -20s-10 -21 -20 -21h-213c-15 0 -19 11 -19 21s7 19 23 19c18 0 40 8 40 35v63h-186c-12 0 -20 7 -20 17c0 3 1 7 3 12l1 1v1l6 8c30 42 128 181 128 305c0 16 14 19 23 19 c8 0 53 -2 71 -2s59 2 68 2c8 0 15 -6 15 -15l-1 -3c-3 -12 -163 -239 -243 -307h135v84c0 12 5 18 9 23l95 115c6 7 11 9 20 9c11 0 12 -9 12 -17v-214z" />
+      </g>
+      <g id="E0A4-o5s9hvb">
          <path transform="scale(1,-1)" d="M97 -125c-54 0 -97 31 -97 83c0 86 88 167 198 167c57 0 97 -32 97 -83c0 -85 -109 -167 -198 -167z" />
       </g>
-      <g id="E241-k1eqy8tl">
+      <g id="E240-o5s9hvb">
+         <path transform="scale(1,-1)" d="M238 -790c-5 -17 -22 -23 -28 -19s-16 13 -16 29c0 4 1 9 3 15c17 45 24 92 24 137c0 59 -9 116 -24 150c-36 85 -131 221 -197 233v239c0 12 8 15 19 15c10 0 18 -6 21 -22c16 -96 58 -182 109 -261c63 -100 115 -218 115 -343c0 -78 -26 -173 -26 -173z" />
+      </g>
+      <g id="E4A1-o5s9hvb">
+         <path transform="scale(1,-1)" d="M326 -140l-306 -103c-1 -1 -3 -1 -4 -1c-7 0 -11 8 -14 15c-1 3 -2 6 -2 9c0 5 3 10 14 15c0 0 214 73 225 76c6 2 8 4 8 7s-2 6 -7 7c-10 4 -226 77 -226 77c-11 4 -14 9 -14 14c0 3 1 6 2 10c3 8 6 14 15 14c1 0 5 -1 9 -2l300 -102c13 -4 13 -10 13 -18s0 -15 -13 -18 z" />
+      </g>
+      <g id="E4A3-o5s9hvb">
+         <path transform="scale(1,-1)" d="M84 -42c0 -23 -19 -42 -42 -42s-42 19 -42 42s19 42 42 42s42 -19 42 -42z" />
+      </g>
+      <g id="E4A5-o5s9hvb">
+         <path transform="scale(1,-1)" d="M314 -48h-291c-24 0 -24 11 -24 24s0 24 24 24h291c24 0 24 -11 24 -24s-1 -24 -24 -24z" />
+      </g>
+      <g id="E4AC-o5s9hvb">
+         <path transform="scale(1,-1)" d="M126 247l108 -231c1 -1 1 -3 1 -5c0 -6 -4 -10 -11 -11h-68c-4 0 -8 2 -11 6c0 0 -56 119 -57 123c-2 2 -4 3 -6 3s-3 -1 -4 -3c-2 -4 -56 -123 -56 -123c-2 -5 -7 -7 -11 -7c-1 0 -4 0 -5 1c-5 1 -7 6 -7 11c0 2 0 3 1 5l106 231s3 6 10 6c4 0 7 -2 10 -6z" />
+      </g>
+      <g id="E610-o5s9hvb">
+         <path transform="scale(1,-1)" d="M26 318h260c14 0 26 -12 26 -26v-280c0 -7 -6 -12 -12 -12h-13c-7 0 -13 5 -13 12v164c0 11 -59 17 -118 17s-118 -6 -118 -17v-164c0 -7 -6 -12 -12 -12h-14c-6 0 -12 5 -12 12v280c0 14 12 26 26 26z" />
+      </g>
+      <g id="E612-o5s9hvb">
+         <path transform="scale(1,-1)" d="M126 1c-10 0 -17 6 -19 14l-105 459c-1 2 -1 3 -1 5c0 7 6 14 14 16h4c8 0 15 -5 18 -13l88 -385l89 385c2 8 9 13 17 13h4c9 -2 14 -9 14 -17v-4l-106 -459c-2 -8 -9 -14 -17 -14z" />
+      </g>
+      <g id="E241-o5s9hvb">
          <path transform="scale(1,-1)" d="M240 760c-10 29 7 48 22 48c7 0 13 -4 16 -15c8 -32 28 -103 28 -181c0 -125 -61 -244 -124 -343c-51 -79 -125 -166 -142 -261c-2 -16 -15 -22 -24 -22c-8 0 -16 5 -16 15v235c134 45 184 126 221 210c15 34 40 118 40 177c0 45 -7 95 -21 137z" />
       </g>
-      <g id="E0A3-k1eqy8tl">
-         <path transform="scale(1,-1)" d="M97 -125c-55 0 -97 30 -97 83c0 52 47 167 196 167c58 0 99 -32 99 -83c0 -33 -33 -167 -198 -167zM75 -87c48 0 189 88 189 131c0 7 -3 13 -6 19c-7 12 -18 21 -37 21c-47 0 -192 -79 -192 -128c0 -7 3 -14 6 -20c7 -12 19 -23 40 -23z" />
+      <g id="E4A2-o5s9hvb">
+         <path transform="scale(1,-1)" d="M84 42c0 -23 -19 -42 -42 -42s-42 19 -42 42s19 42 42 42s42 -19 42 -42z" />
       </g>
-      <g id="E062-k1eqy8tl">
-         <path transform="scale(1,-1)" d="M252 262c173 0 279 -116 279 -290c0 -304 -260 -482 -506 -602c-6 -3 -12 -5 -17 -5c-9 0 -13 6 -13 12c0 8 6 13 15 18c233 133 371 289 371 568c0 157 -46 261 -152 261c-102 0 -162 -73 -162 -113c0 -10 3 -18 16 -18s23 7 50 7c49 0 96 -40 96 -104 c0 -62 -43 -106 -106 -106c-81 0 -123 69 -123 149c0 96 78 223 252 223zM629 180c31 0 55 -24 55 -55s-24 -55 -55 -55s-55 24 -55 55s24 55 55 55zM630 -71c31 0 54 -23 54 -54s-23 -54 -54 -54s-54 23 -54 54s23 54 54 54z" />
-      </g>
-      <g id="E0A2-k1eqy8tl">
-         <path transform="scale(1,-1)" d="M216 125c93 0 206 -52 206 -123c0 -70 -52 -127 -216 -127c-149 0 -206 60 -206 127c0 68 83 123 216 123zM111 63c-2 -8 -3 -16 -3 -24c0 -32 15 -66 35 -89c21 -28 58 -52 94 -52c10 0 21 1 31 4c33 8 46 36 46 67c0 60 -55 134 -124 134c-31 0 -68 -5 -79 -40z" />
+      <g id="E4A0-o5s9hvb">
+         <path transform="scale(1,-1)" d="M326 105l-306 -103c-1 -1 -3 -1 -4 -1c-7 0 -11 8 -14 15c-1 3 -2 6 -2 9c0 5 3 10 14 15c0 0 214 73 225 76c6 2 8 4 8 7s-2 6 -7 7c-10 4 -226 77 -226 77c-11 4 -14 9 -14 14c0 3 1 6 2 10c3 8 6 14 15 14c1 0 5 -1 9 -2l300 -102c13 -4 13 -10 13 -18s0 -15 -13 -18z " />
       </g>
    </defs>
-   <style type="text/css">#k1eqy8tl g.page-margin {font-family:Times,serif;}#k1eqy8tl g.ending, #k1eqy8tl g.fing, #k1eqy8tl g.reh, #k1eqy8tl g.tempo {font-weight:bold;}#k1eqy8tl g.dir, #k1eqy8tl g.dynam, #k1eqy8tl g.mNum {font-style:italic;}#k1eqy8tl g.label {font-weight:normal;}#k1eqy8tl path {stroke:currentColor}</style>
-   <svg class="definition-scale" color="black" viewBox="0 0 21000 10040">
+   <style type="text/css">#o5s9hvb g.page-margin {font-family:Times,serif;}#o5s9hvb g.ending, #o5s9hvb g.fing, #o5s9hvb g.reh, #o5s9hvb g.tempo {font-weight:bold;}#o5s9hvb g.dir, #o5s9hvb g.dynam, #o5s9hvb g.mNum {font-style:italic;}#o5s9hvb g.label {font-weight:normal;}#o5s9hvb path {stroke:currentColor}</style>
+   <svg class="definition-scale" color="black" viewBox="0 0 21000 2860">
       <g class="page-margin" transform="translate(500, 500)">
-         <g data-id="u1dscsb9" data-class="mdiv" class="mdiv pageMilestone" />
-         <g data-id="vzunn5i" data-class="score" class="score pageMilestone" />
-         <g data-id="b1b6dqgb" data-class="system" class="system">
-            <path d="M1523 586 L1523 8506" stroke-width="27" />
-            <g data-id="fu6ivr1" data-class="grpSym" class="grpSym">
-               <path d="M1438,8488 C1078,7948 1528,7426 1258,7246 C1591,7426 1141,7948 1438,8488" stroke-linecap="round" stroke-linejoin="round" stroke-width="18" />
-               <path d="M1438,6004 C1141,6544 1591,7066 1258,7246 C1528,7066 1078,6544 1438,6004" stroke-linecap="round" stroke-linejoin="round" stroke-width="18" />
-            </g>
-            <g data-id="glrckjs" data-class="label" class="label">
-               <text x="1105" y="7336" text-anchor="end" font-size="0px">
-                  <tspan data-id="h1uymabs" data-class="text" class="text">
-                     <tspan font-size="405px">Piano</tspan>
-                  </tspan>
-               </text>
-            </g>
-            <g data-id="a1jrxi6t" data-class="label" class="label">
-               <text x="1330" y="1036" text-anchor="end" font-size="0px">
-                  <tspan data-id="bkm2sff" data-class="text" class="text">
-                     <tspan font-size="405px">Flute</tspan>
-                  </tspan>
-               </text>
-            </g>
-            <g data-id="lidnozn" data-class="label" class="label">
-               <text x="1330" y="2836" text-anchor="end" font-size="0px">
-                  <tspan data-id="m1mojzqf" data-class="text" class="text">
+         <g data-id="y2oms72" data-class="mdiv" class="mdiv pageMilestone" />
+         <g data-id="z1ry1hlb" data-class="score" class="score pageMilestone" />
+         <g data-id="v1j528kb" data-class="system" class="system">
+            <g data-id="b11kwe8m" data-class="label" class="label">
+               <text x="1201" y="1058" text-anchor="end" font-size="0px">
+                  <tspan data-id="cpq46mv" data-class="text" class="text">
                      <tspan font-size="405px">Violin</tspan>
                   </tspan>
                </text>
             </g>
-            <g data-id="v1hsd19m" data-class="label" class="label">
-               <text x="1330" y="4636" text-anchor="end" font-size="0px">
-                  <tspan data-id="w1v63yei" data-class="text" class="text">
-                     <tspan font-size="405px">Cello</tspan>
-                  </tspan>
-               </text>
-            </g>
-            <g data-id="x122w6f8" data-class="section" class="section systemMilestone" />
-            <g data-id="lsj9fj5" data-class="measure" class="measure">
-               <g data-id="u19xsjie" data-class="staff" class="staff">
-                  <path d="M1510 586 L5586 586" stroke-width="13" />
-                  <path d="M1510 766 L5586 766" stroke-width="13" />
-                  <path d="M1510 946 L5586 946" stroke-width="13" />
-                  <path d="M1510 1126 L5586 1126" stroke-width="13" />
-                  <path d="M1510 1306 L5586 1306" stroke-width="13" />
-                  <g data-id="a1r5noxw" data-class="clef" class="clef">
-                     <use xlink:href="#E050-k1eqy8tl" transform="translate(1630, 1126) scale(0.72, 0.72)" />
+            <g data-id="bxkt8zm" data-class="section" class="section systemMilestone" />
+            <g data-id="qhb25ec" data-class="measure" class="measure">
+               <g data-id="z1208ywp" data-class="staff" class="staff">
+                  <path d="M1381 608 L6470 608" stroke-width="13" />
+                  <path d="M1381 788 L6470 788" stroke-width="13" />
+                  <path d="M1381 968 L6470 968" stroke-width="13" />
+                  <path d="M1381 1148 L6470 1148" stroke-width="13" />
+                  <path d="M1381 1328 L6470 1328" stroke-width="13" />
+                  <g data-id="bvxahoa" data-class="clef" class="clef">
+                     <use xlink:href="#E050-o5s9hvb" transform="translate(1471, 1148) scale(0.72, 0.72)" />
                   </g>
-                  <g data-id="b102cp71" data-class="keySig" class="keySig" />
-                  <g data-class="ledgerLines" class="ledgerLines above">
-                     <g data-class="lineDash" class="lineDash" data-related="#wo6ys76">
-                        <path d="M2345 406 L2653 406" stroke-width="22" />
-                     </g>
-                     <g data-class="lineDash" class="lineDash" data-related="#wo6ys76">
-                        <path d="M2345 226 L2653 226" stroke-width="22" />
-                     </g>
+                  <g data-id="c1nli2t" data-class="keySig" class="keySig" />
+                  <g data-id="d18sn3qb" data-class="meterSig" class="meterSig">
+                     <use xlink:href="#E084-o5s9hvb" transform="translate(2120, 788) scale(0.72, 0.72)" />
+                     <use xlink:href="#E084-o5s9hvb" transform="translate(2120, 1148) scale(0.72, 0.72)" />
                   </g>
-                  <g data-id="vi4v5g3" data-class="layer" class="layer">
-                     <g data-id="wo6ys76" data-class="note" class="note" fill="#000001" stroke="#000001" color="#000001" style="fill:#000001;stroke:#000001;color:#000001">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(2393, 226) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="dho51jh" data-class="stem" class="stem">
-                           <path d="M2402 256 L2402 1036" stroke-width="18" />
-                           <g data-id="e162yscf" data-class="flag" class="flag">
-                              <use xlink:href="#E241-k1eqy8tl" transform="translate(2393, 1036) scale(0.72, 0.72)" />
-                           </g>
-                        </g>
-                     </g>
-                     <g data-id="y1bq5koa" data-class="note" class="note" fill="#000002" stroke="#000002" color="#000002" style="fill:#000002;stroke:#000002;color:#000002">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(2843, 496) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="f1b3jry6" data-class="stem" class="stem">
-                           <path d="M2852 526 L2852 1126" stroke-width="18" />
-                           <g data-id="gcnkm7u" data-class="flag" class="flag">
-                              <use xlink:href="#E241-k1eqy8tl" transform="translate(2843, 1126) scale(0.72, 0.72)" />
-                           </g>
-                        </g>
-                     </g>
-                     <g data-id="z1d24rfy" data-class="note" class="note" fill="#000003" stroke="#000003" color="#000003" style="fill:#000003;stroke:#000003;color:#000003">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(3293, 676) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="hqmzla5" data-class="stem" class="stem">
-                           <path d="M3302 706 L3302 1306" stroke-width="18" />
-                           <g data-id="i1rwpy4a" data-class="flag" class="flag">
-                              <use xlink:href="#E241-k1eqy8tl" transform="translate(3293, 1306) scale(0.72, 0.72)" />
-                           </g>
-                        </g>
-                     </g>
-                     <g data-id="a1lh2k8l" data-class="note" class="note" fill="#000004" stroke="#000004" color="#000004" style="fill:#000004;stroke:#000004;color:#000004">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(3743, 856) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="jibzeic" data-class="stem" class="stem">
-                           <path d="M3752 886 L3752 1486" stroke-width="18" />
-                           <g data-id="k3gzg3m" data-class="flag" class="flag">
-                              <use xlink:href="#E241-k1eqy8tl" transform="translate(3743, 1486) scale(0.72, 0.72)" />
-                           </g>
-                        </g>
-                     </g>
-                     <g data-id="b1objqv6" data-class="note" class="note" fill="#000005" stroke="#000005" color="#000005" style="fill:#000005;stroke:#000005;color:#000005">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(4193, 766) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="l1ic3hpx" data-class="stem" class="stem">
-                           <path d="M4202 796 L4202 1396" stroke-width="18" />
-                        </g>
-                     </g>
-                     <g data-id="d1gv4qop" data-class="note" class="note" fill="#000006" stroke="#000006" color="#000006" style="fill:#000006;stroke:#000006;color:#000006">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(4883, 496) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="m1l4hagf" data-class="stem" class="stem">
-                           <path d="M4892 526 L4892 1126" stroke-width="18" />
-                        </g>
-                     </g>
-                  </g>
-               </g>
-               <g data-id="yrr7vzs" data-class="staff" class="staff">
-                  <path d="M1510 2386 L5586 2386" stroke-width="13" />
-                  <path d="M1510 2566 L5586 2566" stroke-width="13" />
-                  <path d="M1510 2746 L5586 2746" stroke-width="13" />
-                  <path d="M1510 2926 L5586 2926" stroke-width="13" />
-                  <path d="M1510 3106 L5586 3106" stroke-width="13" />
-                  <g data-id="c1x254r0" data-class="clef" class="clef">
-                     <use xlink:href="#E050-k1eqy8tl" transform="translate(1630, 2926) scale(0.72, 0.72)" />
-                  </g>
-                  <g data-id="d1yjhgi4" data-class="keySig" class="keySig" />
-                  <g data-id="z30ja2g" data-class="layer" class="layer">
-                     <g data-id="ar4px2y" data-class="note" class="note" fill="#000007" stroke="#000007" color="#000007" style="fill:#000007;stroke:#000007;color:#000007">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(2393, 3106) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="n9d765b" data-class="stem" class="stem">
-                           <path d="M2596 3076 L2596 2476" stroke-width="18" />
-                        </g>
-                     </g>
-                     <g data-id="byw7rg0" data-class="note" class="note" fill="#000008" stroke="#000008" color="#000008" style="fill:#000008;stroke:#000008;color:#000008">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A3-k1eqy8tl" transform="translate(3293, 2926) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="o1yw057b" data-class="stem" class="stem">
-                           <path d="M3496 2896 L3496 2296" stroke-width="18" />
-                        </g>
-                     </g>
-                     <g data-id="d142zd1x" data-class="note" class="note" fill="#000009" stroke="#000009" color="#000009" style="fill:#000009;stroke:#000009;color:#000009">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(4883, 2926) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="pg8jf52" data-class="stem" class="stem">
-                           <path d="M5086 2896 L5086 2296" stroke-width="18" />
-                        </g>
-                     </g>
-                  </g>
-               </g>
-               <g data-id="y15qr748" data-class="staff" class="staff">
-                  <path d="M1510 4186 L5586 4186" stroke-width="13" />
-                  <path d="M1510 4366 L5586 4366" stroke-width="13" />
-                  <path d="M1510 4546 L5586 4546" stroke-width="13" />
-                  <path d="M1510 4726 L5586 4726" stroke-width="13" />
-                  <path d="M1510 4906 L5586 4906" stroke-width="13" />
-                  <g data-id="e86e5cf" data-class="clef" class="clef">
-                     <use xlink:href="#E062-k1eqy8tl" transform="translate(1630, 4366) scale(0.72, 0.72)" />
-                  </g>
-                  <g data-id="f27uqyp" data-class="keySig" class="keySig" />
                   <g data-class="ledgerLines" class="ledgerLines below">
-                     <g data-class="lineDash" class="lineDash" data-related="#c1nltq5t">
-                        <path d="M4145 5086 L4453 5086" stroke-width="22" />
-                     </g>
-                     <g data-class="lineDash" class="lineDash" data-related="#d1i58mnz">
-                        <path d="M4835 5086 L5143 5086" stroke-width="22" />
-                     </g>
-                     <g data-class="lineDash" class="lineDash" data-related="#d1i58mnz">
-                        <path d="M4835 5266 L5143 5266" stroke-width="22" />
+                     <g data-class="lineDash" class="lineDash" data-related="#b1pavm7w">
+                        <path d="M2665 1508 L2973 1508" stroke-width="22" />
                      </g>
                   </g>
-                  <g data-id="z1134jb4" data-class="layer" class="layer">
-                     <g data-id="a17ws1c7" data-class="note" class="note" fill="#00000a" stroke="#00000a" color="#00000a" style="fill:#00000a;stroke:#00000a;color:#00000a">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(2393, 4636) scale(0.72, 0.72)" />
+                  <g data-id="adslf5f" data-class="layer" class="layer">
+                     <g data-id="b1pavm7w" data-class="note" class="note" fill="#000001" stroke="#000001" color="#000001" style="fill:#000001;stroke:#000001;color:#000001">
+                        <g data-class="notehead" class="notehead" fill="#000001" stroke="#000001" color="#000001" style="fill:#000001;stroke:#000001;color:#000001">
+                           <use xlink:href="#E0A4-o5s9hvb" transform="translate(2713, 1508) scale(0.72, 0.72)" fill="#000001" stroke="#000001" color="#000001" style="fill:#000001;stroke:#000001;color:#000001" />
                         </g>
-                        <g data-id="q1uymd3e" data-class="stem" class="stem">
-                           <path d="M2596 4606 L2596 4006" stroke-width="18" />
-                        </g>
-                     </g>
-                     <g data-id="bc42237" data-class="note" class="note" fill="#00000b" stroke="#00000b" color="#00000b" style="fill:#00000b;stroke:#00000b;color:#00000b">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(3293, 4906) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="r1aj9pcm" data-class="stem" class="stem">
-                           <path d="M3496 4876 L3496 4276" stroke-width="18" />
-                        </g>
-                     </g>
-                     <g data-id="c1nltq5t" data-class="note" class="note" fill="#00000c" stroke="#00000c" color="#00000c" style="fill:#00000c;stroke:#00000c;color:#00000c">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(4193, 5086) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="s5bz5ry" data-class="stem" class="stem">
-                           <path d="M4396 5056 L4396 4456" stroke-width="18" />
-                        </g>
-                     </g>
-                     <g data-id="d1i58mnz" data-class="note" class="note" fill="#00000d" stroke="#00000d" color="#00000d" style="fill:#00000d;stroke:#00000d;color:#00000d">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A4-k1eqy8tl" transform="translate(4883, 5266) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="t9o06cy" data-class="stem" class="stem">
-                           <path d="M5086 5236 L5086 4546" stroke-width="18" />
-                        </g>
-                     </g>
-                  </g>
-               </g>
-               <g data-id="hvwojcf" data-class="staff" class="staff">
-                  <path d="M1510 5986 L5586 5986" stroke-width="13" />
-                  <path d="M1510 6166 L5586 6166" stroke-width="13" />
-                  <path d="M1510 6346 L5586 6346" stroke-width="13" />
-                  <path d="M1510 6526 L5586 6526" stroke-width="13" />
-                  <path d="M1510 6706 L5586 6706" stroke-width="13" />
-                  <g data-id="g66dz9n" data-class="clef" class="clef">
-                     <use xlink:href="#E050-k1eqy8tl" transform="translate(1630, 6526) scale(0.72, 0.72)" />
-                  </g>
-                  <g data-id="h1d4tqtn" data-class="keySig" class="keySig" />
-                  <g data-class="ledgerLines" class="ledgerLines below">
-                     <g data-class="lineDash" class="lineDash" data-related="#kiivc0w">
-                        <path d="M2345 6886 L2653 6886" stroke-width="22" />
-                     </g>
-                     <g data-class="lineDash" class="lineDash" data-related="#o1fg0wza">
-                        <path d="M3245 6886 L3553 6886" stroke-width="22" />
-                     </g>
-                     <g data-class="lineDash" class="lineDash" data-related="#o1fg0wza">
-                        <path d="M3245 7066 L3553 7066" stroke-width="22" />
-                     </g>
-                  </g>
-                  <g data-id="j17ny9l4" data-class="layer" class="layer">
-                     <g data-id="l1l6xqnx" data-class="chord" class="chord">
-                        <g data-id="uc7x4i1" data-class="stem" class="stem">
-                           <path d="M2596 6856 L2596 5896" stroke-width="18" />
-                        </g>
-                        <g data-id="kiivc0w" data-class="note" class="note" fill="#00000e" stroke="#00000e" color="#00000e" style="fill:#00000e;stroke:#00000e;color:#00000e">
-                           <g data-class="notehead" class="notehead">
-                              <use xlink:href="#E0A4-k1eqy8tl" transform="translate(2393, 6886) scale(0.72, 0.72)" />
+                        <g data-id="d1rjd9sc" data-class="stem" class="stem" fill="#000001" stroke="#000001" color="#000001" style="fill:#000001;stroke:#000001;color:#000001">
+                           <path d="M2916 1478 L2916 878" stroke-width="18" fill="#000001" stroke="#000001" color="#000001" style="fill:#000001;stroke:#000001;color:#000001" />
+                           <g data-id="e8wib1v" data-class="flag" class="flag" fill="#000001" stroke="#000001" color="#000001" style="fill:#000001;stroke:#000001;color:#000001">
+                              <use xlink:href="#E240-o5s9hvb" transform="translate(2907, 878) scale(0.72, 0.72)" fill="#000001" stroke="#000001" color="#000001" style="fill:#000001;stroke:#000001;color:#000001" />
                            </g>
                         </g>
-                        <g data-id="mdicbmi" data-class="note" class="note" fill="#00000f" stroke="#00000f" color="#00000f" style="fill:#00000f;stroke:#00000f;color:#00000f">
-                           <g data-class="notehead" class="notehead">
-                              <use xlink:href="#E0A4-k1eqy8tl" transform="translate(2393, 6706) scale(0.72, 0.72)" />
+                        <g data-id="c1wvxf9l" data-class="artic" class="artic" fill="#000002" stroke="#000002" color="#000002" style="fill:#000002;stroke:#000002;color:#000002">
+                           <use xlink:href="#E4A1-o5s9hvb" transform="translate(2697, 1665) scale(0.72, 0.72)" fill="#000002" stroke="#000002" color="#000002" style="fill:#000002;stroke:#000002;color:#000002" />
+                        </g>
+                     </g>
+                     <g data-id="dn1t9xj" data-class="note" class="note" fill="#000003" stroke="#000003" color="#000003" style="fill:#000003;stroke:#000003;color:#000003">
+                        <g data-class="notehead" class="notehead" fill="#000003" stroke="#000003" color="#000003" style="fill:#000003;stroke:#000003;color:#000003">
+                           <use xlink:href="#E0A4-o5s9hvb" transform="translate(3187, 1418) scale(0.72, 0.72)" fill="#000003" stroke="#000003" color="#000003" style="fill:#000003;stroke:#000003;color:#000003" />
+                        </g>
+                        <g data-id="f1wqiw8s" data-class="stem" class="stem" fill="#000003" stroke="#000003" color="#000003" style="fill:#000003;stroke:#000003;color:#000003">
+                           <path d="M3390 1388 L3390 788" stroke-width="18" fill="#000003" stroke="#000003" color="#000003" style="fill:#000003;stroke:#000003;color:#000003" />
+                           <g data-id="g1crb2g9" data-class="flag" class="flag" fill="#000003" stroke="#000003" color="#000003" style="fill:#000003;stroke:#000003;color:#000003">
+                              <use xlink:href="#E240-o5s9hvb" transform="translate(3381, 788) scale(0.72, 0.72)" fill="#000003" stroke="#000003" color="#000003" style="fill:#000003;stroke:#000003;color:#000003" />
                            </g>
                         </g>
-                        <g data-id="nsn3ent" data-class="note" class="note" fill="#000010" stroke="#000010" color="#000010" style="fill:#000010;stroke:#000010;color:#000010">
-                           <g data-class="notehead" class="notehead">
-                              <use xlink:href="#E0A4-k1eqy8tl" transform="translate(2393, 6526) scale(0.72, 0.72)" />
+                        <g data-id="e14q2y3s" data-class="artic" class="artic" fill="#000004" stroke="#000004" color="#000004" style="fill:#000004;stroke:#000004;color:#000004">
+                           <use xlink:href="#E4A3-o5s9hvb" transform="translate(3263, 1545) scale(0.72, 0.72)" fill="#000004" stroke="#000004" color="#000004" style="fill:#000004;stroke:#000004;color:#000004" />
+                        </g>
+                     </g>
+                     <g data-id="f1wa9gj" data-class="note" class="note" fill="#000005" stroke="#000005" color="#000005" style="fill:#000005;stroke:#000005;color:#000005">
+                        <g data-class="notehead" class="notehead" fill="#000005" stroke="#000005" color="#000005" style="fill:#000005;stroke:#000005;color:#000005">
+                           <use xlink:href="#E0A4-o5s9hvb" transform="translate(3661, 1328) scale(0.72, 0.72)" fill="#000005" stroke="#000005" color="#000005" style="fill:#000005;stroke:#000005;color:#000005" />
+                        </g>
+                        <g data-id="h19pjdey" data-class="stem" class="stem" fill="#000005" stroke="#000005" color="#000005" style="fill:#000005;stroke:#000005;color:#000005">
+                           <path d="M3864 1298 L3864 698" stroke-width="18" fill="#000005" stroke="#000005" color="#000005" style="fill:#000005;stroke:#000005;color:#000005" />
+                           <g data-id="i1uqsgof" data-class="flag" class="flag" fill="#000005" stroke="#000005" color="#000005" style="fill:#000005;stroke:#000005;color:#000005">
+                              <use xlink:href="#E240-o5s9hvb" transform="translate(3855, 698) scale(0.72, 0.72)" fill="#000005" stroke="#000005" color="#000005" style="fill:#000005;stroke:#000005;color:#000005" />
+                           </g>
+                        </g>
+                        <g data-id="g4mwcjb" data-class="artic" class="artic" fill="#000006" stroke="#000006" color="#000006" style="fill:#000006;stroke:#000006;color:#000006">
+                           <use xlink:href="#E4A5-o5s9hvb" transform="translate(3645, 1468) scale(0.72, 0.72)" fill="#000006" stroke="#000006" color="#000006" style="fill:#000006;stroke:#000006;color:#000006" />
+                        </g>
+                     </g>
+                     <g data-id="h17ff1f2" data-class="note" class="note" fill="#000007" stroke="#000007" color="#000007" style="fill:#000007;stroke:#000007;color:#000007">
+                        <g data-class="notehead" class="notehead" fill="#000007" stroke="#000007" color="#000007" style="fill:#000007;stroke:#000007;color:#000007">
+                           <use xlink:href="#E0A4-o5s9hvb" transform="translate(4135, 1238) scale(0.72, 0.72)" fill="#000007" stroke="#000007" color="#000007" style="fill:#000007;stroke:#000007;color:#000007" />
+                        </g>
+                        <g data-id="j1jkx2po" data-class="stem" class="stem" fill="#000007" stroke="#000007" color="#000007" style="fill:#000007;stroke:#000007;color:#000007">
+                           <path d="M4338 1208 L4338 608" stroke-width="18" fill="#000007" stroke="#000007" color="#000007" style="fill:#000007;stroke:#000007;color:#000007" />
+                           <g data-id="k1nbo11w" data-class="flag" class="flag" fill="#000007" stroke="#000007" color="#000007" style="fill:#000007;stroke:#000007;color:#000007">
+                              <use xlink:href="#E240-o5s9hvb" transform="translate(4329, 608) scale(0.72, 0.72)" fill="#000007" stroke="#000007" color="#000007" style="fill:#000007;stroke:#000007;color:#000007" />
+                           </g>
+                        </g>
+                        <g data-id="i172jouf" data-class="artic" class="artic" fill="#000008" stroke="#000008" color="#000008" style="fill:#000008;stroke:#000008;color:#000008">
+                           <use xlink:href="#E4AC-o5s9hvb" transform="translate(4157, 535) scale(0.72, 0.72)" fill="#000008" stroke="#000008" color="#000008" style="fill:#000008;stroke:#000008;color:#000008" />
+                        </g>
+                     </g>
+                     <g data-id="jcj7ast" data-class="note" class="note" fill="#000009" stroke="#000009" color="#000009" style="fill:#000009;stroke:#000009;color:#000009">
+                        <g data-class="notehead" class="notehead" fill="#000009" stroke="#000009" color="#000009" style="fill:#000009;stroke:#000009;color:#000009">
+                           <use xlink:href="#E0A4-o5s9hvb" transform="translate(4609, 1148) scale(0.72, 0.72)" fill="#000009" stroke="#000009" color="#000009" style="fill:#000009;stroke:#000009;color:#000009" />
+                        </g>
+                        <g data-id="l6ehyea" data-class="stem" class="stem" fill="#000009" stroke="#000009" color="#000009" style="fill:#000009;stroke:#000009;color:#000009">
+                           <path d="M4812 1118 L4812 518" stroke-width="18" fill="#000009" stroke="#000009" color="#000009" style="fill:#000009;stroke:#000009;color:#000009" />
+                           <g data-id="m181471i" data-class="flag" class="flag" fill="#000009" stroke="#000009" color="#000009" style="fill:#000009;stroke:#000009;color:#000009">
+                              <use xlink:href="#E240-o5s9hvb" transform="translate(4803, 518) scale(0.72, 0.72)" fill="#000009" stroke="#000009" color="#000009" style="fill:#000009;stroke:#000009;color:#000009" />
+                           </g>
+                        </g>
+                        <g data-id="kxc6q2f" data-class="artic" class="artic technical" fill="#00000a" stroke="#00000a" color="#00000a" style="fill:#00000a;stroke:#00000a;color:#00000a">
+                           <use xlink:href="#E610-o5s9hvb" transform="translate(4603, 445) scale(0.72, 0.72)" fill="#00000a" stroke="#00000a" color="#00000a" style="fill:#00000a;stroke:#00000a;color:#00000a" />
+                        </g>
+                     </g>
+                     <g data-id="l6munre" data-class="note" class="note" fill="#00000b" stroke="#00000b" color="#00000b" style="fill:#00000b;stroke:#00000b;color:#00000b">
+                        <g data-class="notehead" class="notehead" fill="#00000b" stroke="#00000b" color="#00000b" style="fill:#00000b;stroke:#00000b;color:#00000b">
+                           <use xlink:href="#E0A4-o5s9hvb" transform="translate(5083, 1058) scale(0.72, 0.72)" fill="#00000b" stroke="#00000b" color="#00000b" style="fill:#00000b;stroke:#00000b;color:#00000b" />
+                        </g>
+                        <g data-id="n1mulc9z" data-class="stem" class="stem" fill="#00000b" stroke="#00000b" color="#00000b" style="fill:#00000b;stroke:#00000b;color:#00000b">
+                           <path d="M5286 1028 L5286 428" stroke-width="18" fill="#00000b" stroke="#00000b" color="#00000b" style="fill:#00000b;stroke:#00000b;color:#00000b" />
+                           <g data-id="o1fznfes" data-class="flag" class="flag" fill="#00000b" stroke="#00000b" color="#00000b" style="fill:#00000b;stroke:#00000b;color:#00000b">
+                              <use xlink:href="#E240-o5s9hvb" transform="translate(5277, 428) scale(0.72, 0.72)" fill="#00000b" stroke="#00000b" color="#00000b" style="fill:#00000b;stroke:#00000b;color:#00000b" />
+                           </g>
+                        </g>
+                        <g data-id="m1m31phc" data-class="artic" class="artic technical" fill="#00000c" stroke="#00000c" color="#00000c" style="fill:#00000c;stroke:#00000c;color:#00000c">
+                           <use xlink:href="#E612-o5s9hvb" transform="translate(5100, 355) scale(0.72, 0.72)" fill="#00000c" stroke="#00000c" color="#00000c" style="fill:#00000c;stroke:#00000c;color:#00000c" />
+                        </g>
+                     </g>
+                     <g data-id="n1vpq1bo" data-class="note" class="note" fill="#00000d" stroke="#00000d" color="#00000d" style="fill:#00000d;stroke:#00000d;color:#00000d">
+                        <g data-class="notehead" class="notehead" fill="#00000d" stroke="#00000d" color="#00000d" style="fill:#00000d;stroke:#00000d;color:#00000d">
+                           <use xlink:href="#E0A4-o5s9hvb" transform="translate(5557, 968) scale(0.72, 0.72)" fill="#00000d" stroke="#00000d" color="#00000d" style="fill:#00000d;stroke:#00000d;color:#00000d" />
+                        </g>
+                        <g data-id="p1m6rgp8" data-class="stem" class="stem" fill="#00000d" stroke="#00000d" color="#00000d" style="fill:#00000d;stroke:#00000d;color:#00000d">
+                           <path d="M5566 998 L5566 1568" stroke-width="18" fill="#00000d" stroke="#00000d" color="#00000d" style="fill:#00000d;stroke:#00000d;color:#00000d" />
+                           <g data-id="q1nn8akr" data-class="flag" class="flag" fill="#00000d" stroke="#00000d" color="#00000d" style="fill:#00000d;stroke:#00000d;color:#00000d">
+                              <use xlink:href="#E241-o5s9hvb" transform="translate(5557, 1568) scale(0.72, 0.72)" fill="#00000d" stroke="#00000d" color="#00000d" style="fill:#00000d;stroke:#00000d;color:#00000d" />
+                           </g>
+                        </g>
+                        <g data-id="oz0u56u" data-class="artic" class="artic" fill="#00000e" stroke="#00000e" color="#00000e" style="fill:#00000e;stroke:#00000e;color:#00000e">
+                           <use xlink:href="#E4A2-o5s9hvb" transform="translate(5633, 728) scale(0.72, 0.72)" fill="#00000e" stroke="#00000e" color="#00000e" style="fill:#00000e;stroke:#00000e;color:#00000e" />
+                        </g>
+                        <g data-id="p1t7nf8m" data-class="artic" class="artic" fill="#00000f" stroke="#00000f" color="#00000f" style="fill:#00000f;stroke:#00000f;color:#00000f">
+                           <use xlink:href="#E4A0-o5s9hvb" transform="translate(5541, 541) scale(0.72, 0.72)" fill="#00000f" stroke="#00000f" color="#00000f" style="fill:#00000f;stroke:#00000f;color:#00000f" />
+                        </g>
+                     </g>
+                     <g data-id="qpoo66k" data-class="note" class="note" fill="#000010" stroke="#000010" color="#000010" style="fill:#000010;stroke:#000010;color:#000010">
+                        <g data-class="notehead" class="notehead" fill="#000010" stroke="#000010" color="#000010" style="fill:#000010;stroke:#000010;color:#000010">
+                           <use xlink:href="#E0A4-o5s9hvb" transform="translate(6007, 878) scale(0.72, 0.72)" fill="#000010" stroke="#000010" color="#000010" style="fill:#000010;stroke:#000010;color:#000010" />
+                        </g>
+                        <g data-id="r132f5uh" data-class="stem" class="stem" fill="#000010" stroke="#000010" color="#000010" style="fill:#000010;stroke:#000010;color:#000010">
+                           <path d="M6016 908 L6016 1508" stroke-width="18" fill="#000010" stroke="#000010" color="#000010" style="fill:#000010;stroke:#000010;color:#000010" />
+                           <g data-id="s989pm8" data-class="flag" class="flag" fill="#000010" stroke="#000010" color="#000010" style="fill:#000010;stroke:#000010;color:#000010">
+                              <use xlink:href="#E241-o5s9hvb" transform="translate(6007, 1508) scale(0.72, 0.72)" fill="#000010" stroke="#000010" color="#000010" style="fill:#000010;stroke:#000010;color:#000010" />
                            </g>
                         </g>
                      </g>
-                     <g data-id="o1fg0wza" data-class="note" class="note" fill="#000011" stroke="#000011" color="#000011" style="fill:#000011;stroke:#000011;color:#000011">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A3-k1eqy8tl" transform="translate(3293, 7156) scale(0.72, 0.72)" />
-                        </g>
-                        <g data-id="w6uns02" data-class="dots" class="dots">
-                           <ellipse cx="3595" cy="7156" rx="36" ry="36" fill-opacity="1" stroke-opacity="1" />
-                        </g>
-                        <g data-id="v1jx73e3" data-class="stem" class="stem">
-                           <path d="M3496 7126 L3496 6346" stroke-width="18" />
-                        </g>
-                     </g>
                   </g>
                </g>
-               <g data-id="ih4n3jx" data-class="staff" class="staff">
-                  <path d="M1510 7786 L5586 7786" stroke-width="13" />
-                  <path d="M1510 7966 L5586 7966" stroke-width="13" />
-                  <path d="M1510 8146 L5586 8146" stroke-width="13" />
-                  <path d="M1510 8326 L5586 8326" stroke-width="13" />
-                  <path d="M1510 8506 L5586 8506" stroke-width="13" />
-                  <g data-id="i15zcjme" data-class="clef" class="clef">
-                     <use xlink:href="#E062-k1eqy8tl" transform="translate(1630, 7966) scale(0.72, 0.72)" />
-                  </g>
-                  <g data-id="jn3avyo" data-class="keySig" class="keySig" />
-                  <g data-id="pee8ufd" data-class="layer" class="layer">
-                     <g data-id="qo6a2gf" data-class="note" class="note" fill="#000012" stroke="#000012" color="#000012" style="fill:#000012;stroke:#000012;color:#000012">
-                        <g data-class="notehead" class="notehead">
-                           <use xlink:href="#E0A2-k1eqy8tl" transform="translate(2393, 8236) scale(0.72, 0.72)" />
-                        </g>
-                     </g>
-                  </g>
-               </g>
-               <g data-id="xw703ps" data-class="slur" class="slur" fill="#000013" stroke="#000013" color="#000013" style="fill:#000013;stroke:#000013;color:#000013">
-                  <path d="M2499,24 C2954,-91 3641,227 3847,651 C3598,273 2947,-29 2499,24" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
-               </g>
-               <g data-id="c171mn74" data-class="slur" class="slur" fill="#000014" stroke="#000014" color="#000014" style="fill:#000014;stroke:#000014;color:#000014">
-                  <path d="M4299,563 C4359,346 4793,177 4987,293 C4792,243 4405,394 4299,563" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
-               </g>
-               <g data-id="c7fha5c" data-class="tie" class="tie" fill="#000015" stroke="#000015" color="#000015" style="fill:#000015;stroke:#000015;color:#000015">
-                  <path d="M3550,2971 C3876,3078 4511,3078 4838,2971 C4520,3126 3867,3126 3550,2971" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
-               </g>
-               <g data-id="tjdf7j7" data-class="barLine" class="barLine">
-                  <path d="M5573 586 L5573 1306" stroke-width="27" />
-                  <path d="M5573 2386 L5573 3106" stroke-width="27" />
-                  <path d="M5573 4186 L5573 4906" stroke-width="27" />
-                  <path d="M5573 5986 L5573 6706" stroke-width="27" />
-                  <path d="M5573 7786 L5573 8506" stroke-width="27" />
-                  <path d="M5573 6706 L5573 7786" stroke-width="27" />
+               <g data-id="y9uctso" data-class="barLine" class="barLine">
+                  <path d="M6457 608 L6457 1328" stroke-width="27" />
                </g>
             </g>
-            <g data-id="y6za5s0" data-class="systemMilestoneEnd" class="systemMilestoneEnd x122w6f8" />
+            <g data-id="y6zjed5" data-class="systemMilestoneEnd" class="systemMilestoneEnd bxkt8zm" />
          </g>
-         <g data-id="z5g8mvw" data-class="pageMilestoneEnd" class="pageMilestoneEnd vzunn5i" />
-         <g data-id="a1wizofv" data-class="pageMilestoneEnd" class="pageMilestoneEnd u1dscsb9" />
+         <g data-id="zr6f7v7" data-class="pageMilestoneEnd" class="pageMilestoneEnd z1ry1hlb" />
+         <g data-id="a1sgy3cd" data-class="pageMilestoneEnd" class="pageMilestoneEnd y2oms72" />
       </g>
    </svg>
 </svg>

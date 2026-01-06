@@ -82,34 +82,33 @@ def inject_colors_to_svg(svg_string: str, element_ids: list, color_mapper: Color
     return ET.tostring(root, encoding='unicode')
 
 
-def _inject_colors_recursive(element: ET.Element, target_ids: list, color_mapper: ColorIDMapper):
+def _inject_colors_recursive(element: ET.Element, target_ids: list, color_mapper: ColorIDMapper, active_color: str = None):
     """Recursively inject colors."""
     # Check both 'id' and 'data-id'
-    # Verovio often puts the MusicXML ID in 'data-id'
     element_id = element.get('data-id') or element.get('id')
     
+    # If we find a target ID, the active_color starts here
     if element_id and element_id in target_ids:
-        # Get unique color for this ID
-        unique_color = color_mapper.get_unique_color(element_id)
+        active_color = color_mapper.get_unique_color(element_id)
+    
+    if active_color:
+        # Inject color as fill AND stroke AND color
+        element.set('fill', active_color)
+        element.set('stroke', active_color)
+        element.set('color', active_color)
         
-        # Inject color as fill AND stroke AND color (for currentColor)
-        element.set('fill', unique_color)
-        element.set('stroke', unique_color)
-        element.set('color', unique_color)
-        
-        # Also add to style if exists
+        # Also add to style
         style = element.get('style', '')
-        # Remove existing fill/stroke/color from style
         style_parts = [p.strip() for p in style.split(';') if p.strip()]
         style_parts = [p for p in style_parts if not p.startswith('fill') and not p.startswith('stroke') and not p.startswith('color')]
-        style_parts.append(f'fill:{unique_color}')
-        style_parts.append(f'stroke:{unique_color}')
-        style_parts.append(f'color:{unique_color}')
+        style_parts.append(f'fill:{active_color}')
+        style_parts.append(f'stroke:{active_color}')
+        style_parts.append(f'color:{active_color}')
         element.set('style', ';'.join(style_parts))
     
     # Recurse
     for child in element:
-        _inject_colors_recursive(child, target_ids, color_mapper)
+        _inject_colors_recursive(child, target_ids, color_mapper, active_color)
 
 
 def extract_note_ids_from_svg(svg_string: str) -> list:
