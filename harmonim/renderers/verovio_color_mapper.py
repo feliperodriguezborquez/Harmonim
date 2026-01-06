@@ -92,18 +92,19 @@ def _inject_colors_recursive(element: ET.Element, target_ids: list, color_mapper
         # Get unique color for this ID
         unique_color = color_mapper.get_unique_color(element_id)
         
-        # Inject color as fill AND stroke
-        # We need to ensure Manim picks it up
+        # Inject color as fill AND stroke AND color (for currentColor)
         element.set('fill', unique_color)
         element.set('stroke', unique_color)
+        element.set('color', unique_color)
         
         # Also add to style if exists
         style = element.get('style', '')
-        # Remove existing fill/stroke from style
+        # Remove existing fill/stroke/color from style
         style_parts = [p.strip() for p in style.split(';') if p.strip()]
-        style_parts = [p for p in style_parts if not p.startswith('fill') and not p.startswith('stroke')]
+        style_parts = [p for p in style_parts if not p.startswith('fill') and not p.startswith('stroke') and not p.startswith('color')]
         style_parts.append(f'fill:{unique_color}')
         style_parts.append(f'stroke:{unique_color}')
+        style_parts.append(f'color:{unique_color}')
         element.set('style', ';'.join(style_parts))
     
     # Recurse
