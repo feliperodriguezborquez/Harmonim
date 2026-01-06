@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<score-partwise version="3.1">
+  <part-list>
+    <score-part id="P1"><part-name>Flute</part-name></score-part>
+    <score-part id="P2"><part-name>Violin</part-name></score-part>
+    <score-part id="P3"><part-name>Cello</part-name></score-part>
+    <score-part id="P4"><part-name>Piano</part-name></score-part>
+  </part-list>
+  
+  <!-- P1: FLUTE (Arpeggios and Slurs) -->
+  <part id="P1">
+    <measure number="1">
+      <attributes>
+        <divisions>4</divisions>
+        <key><fifths>0</fifths></key>
+        <clef><sign>G</sign><line>2</line></clef>
+      </attributes>
+      <note>
+        <pitch><step>C</step><octave>6</octave></pitch>
+        <duration>2</duration>
+        <type>eighth</type>
+        <notations><slur type="start" number="1"/></notations>
+      </note>
+      <note>
+        <pitch><step>G</step><octave>5</octave></pitch>
+        <duration>2</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch><step>E</step><octave>5</octave></pitch>
+        <duration>2</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch><step>C</step><octave>5</octave></pitch>
+        <duration>2</duration>
+        <type>eighth</type>
+        <notations><slur type="stop" number="1"/></notations>
+      </note>
+      <note>
+        <pitch><step>D</step><octave>5</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+        <notations><slur type="start" number="2"/></notations>
+      </note>
+      <note>
+        <pitch><step>G</step><octave>5</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+        <notations><slur type="stop" number="2"/></notations>
+      </note>
+    </measure>
+  </part>
+
+  <!-- P2: VIOLIN (Syncopation and Tie) -->
+  <part id="P2">
+    <measure number="1">
+      <attributes>
+        <divisions>4</divisions>
+        <clef><sign>G</sign><line>2</line></clef>
+      </attributes>
+      <note>
+        <pitch><step>E</step><octave>4</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch><step>G</step><octave>4</octave></pitch>
+        <duration>8</duration>
+        <type>half</type>
+        <tie type="start"/>
+        <notations><tied type="start"/></notations>
+      </note>
+      <note>
+        <pitch><step>G</step><octave>4</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+        <tie type="stop"/>
+        <notations><tied type="stop"/></notations>
+      </note>
+    </measure>
+  </part>
+
+  <!-- P3: CELLO (Staccato and Low notes) -->
+  <part id="P3">
+    <measure number="1">
+      <attributes>
+        <divisions>4</divisions>
+        <clef><sign>F</sign><line>4</line></clef>
+      </attributes>
+      <note>
+        <pitch><step>C</step><octave>3</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch><step>G</step><octave>2</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch><step>E</step><octave>2</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch><step>C</step><octave>2</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+      </note>
+    </measure>
+  </part>
+
+  <!-- P4: PIANO (Chords spanning 2 staves) -->
+  <part id="P4">
+    <measure number="1">
+      <attributes>
+        <divisions>4</divisions>
+        <staves>2</staves>
+        <clef number="1"><sign>G</sign><line>2</line></clef>
+        <clef number="2"><sign>F</sign><line>4</line></clef>
+      </attributes>
+      <note>
+        <pitch><step>C</step><octave>4</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+        <staff>1</staff>
+      </note>
+      <note>
+        <chord/>
+        <pitch><step>E</step><octave>4</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+        <staff>1</staff>
+      </note>
+      <note>
+        <chord/>
+        <pitch><step>G</step><octave>4</octave></pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+        <staff>1</staff>
+      </note>
+      <note>
+        <pitch><step>G</step><octave>3</octave></pitch>
+        <duration>12</duration>
+        <type>half</type>
+        <dot/>
+        <staff>1</staff>
+      </note>
+      <backup><duration>16</duration></backup>
+      <note>
+        <pitch><step>C</step><octave>3</octave></pitch>
+        <duration>16</duration>
+        <type>whole</type>
+        <staff>2</staff>
+      </note>
+    </measure>
+  </part>
+</score-partwise>

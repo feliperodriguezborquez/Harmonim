@@ -92,36 +92,50 @@ class VerovioScore(VGroup):
         Extract timing and MIDI data from Verovio.
         """
         import xml.etree.ElementTree as ET
+        import re
+        import json
         midi_map = {}
         
         # 0. MAP STAVES TO INSTRUMENTS (via MEI)
-        # We need to know which staff number (n) belongs to which part index.
+        # We need to know which staff number (n) belongs to which part index (P1, P2...).
         staff_to_part_idx = {} # {staff_n: part_index}
         try:
+            # 1. Get MEI and STRIP NAMESPACES for total reliability
             mei = self.tk.getMEI()
-            mei_root = ET.fromstring(mei)
-            # Remove namespaces for easier querying
+            # Remove all xmlns="..." and prefixes like mei: or xml:
+            mei_clean = re.sub(r' xmlns(:[a-z]+)?="[^"]+"', '', mei)
+            mei_clean = re.sub(r'([a-z]+):id=', r'id=', mei_clean)
+            
+            mei_root = ET.fromstring(mei_clean)
+            
+            # Find all parts
+            # We look for staffDef or staffGrp that have an id starting with 'P'
+            parts_found = {} # {part_id: [staff_n]}
+            
             for elem in mei_root.iter():
-                elem.tag = elem.tag.split('}')[-1]
+                eid = elem.get('id')
+                if eid and eid.startswith('P') and len(eid) < 8:
+                    if elem.tag == 'staffDef':
+                        s_n = elem.get('n')
+                        if s_n: parts_found[eid] = [s_n]
+                    elif elem.tag == 'staffGrp':
+                        staves = [sd.get('n') for sd in elem.findall(".//staffDef")]
+                        if staves: parts_found[eid] = staves
             
-            # Find staff groups (these represent instruments/parts)
-            # We look for the main staffGrp that contains staffDef
-            # In MEI, instruments are often nested staffGrps
-            parts_found = []
-            for sg in mei_root.findall(".//staffGrp"):
-                staves = [sd.get('n') for sd in sg.findall("staffDef")]
-                if staves:
-                    # Found a staff group with staves
-                    parts_found.append(staves)
+            # If nothing found with 'P', fallback to all individual staves as parts
+            if not parts_found:
+                for sd in mei_root.findall(".//staffDef"):
+                    s_n = sd.get('n')
+                    if s_n: parts_found[f"S{s_n}"] = [s_n]
+
+            # Natural sort by part number (P1, P2...)
+            sorted_part_ids = sorted(parts_found.keys(), key=lambda x: int(re.search(r'\d+', x).group()) if re.search(r'\d+', x) else 0)
             
-            # Sort parts to ensure consistent ordering (usually by staff number)
-            parts_found.sort(key=lambda x: int(x[0]) if x else 0)
-            
-            for p_idx, staves in enumerate(parts_found):
-                for s_n in staves:
+            for p_idx, p_id in enumerate(sorted_part_ids):
+                for s_n in parts_found[p_id]:
                     staff_to_part_idx[s_n] = p_idx
             
-            self.part_list = [f"part_{i}" for i in range(len(parts_found))]
+            self.part_list = sorted_part_ids
         except Exception as e:
             print(f"Warning mapping staves to parts: {e}")
             self.part_list = ["default"]
@@ -130,8 +144,7 @@ class VerovioScore(VGroup):
         # Map element_id to its parent staff number
         id_to_staff_n = {}
         try:
-            # Clean SVG for XML parsing
-            import re
+            # Clean SVG namespaces
             svg_clean = re.sub(' xmlns="[^"]+"', '', self.svg_string, count=1)
             svg_root = ET.fromstring(svg_clean)
             
@@ -139,26 +152,24 @@ class VerovioScore(VGroup):
                 s_id = staff.get('data-id')
                 if not s_id: continue
                 
-                # Ask Verovio for the staff number 'n'
+                # Get staff number 'n'
                 try:
                     s_attrs = self.tk.getElementAttr(s_id)
                     if isinstance(s_attrs, str):
-                        import json
                         s_attrs = json.loads(s_attrs)
                     s_n = s_attrs.get('n')
+                    
                     if s_n:
-                        # Mark all children IDs as belonging to this staff number
+                        # Mark all children (notes, etc) as belonging to this staff n
                         for elem in staff.iter():
                             e_id = elem.get('data-id')
                             if e_id:
                                 id_to_staff_n[e_id] = s_n
-                except:
-                    pass
+                except: pass
         except Exception as e:
             print(f"Warning parsing SVG hierarchy: {e}")
 
         # 2. EXTRACT NOTES
-        import re
         note_pattern = r'data-id="([^"]+)" [^>]*data-class="note"'
         all_note_ids = re.findall(note_pattern, self.svg_string)
         
